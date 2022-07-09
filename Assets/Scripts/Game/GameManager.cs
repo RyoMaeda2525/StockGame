@@ -90,8 +90,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     public void RaiseStock(bool finished = true)
     {
-        _stockPrice++;
-        MoveStockPrice(true);
+            _stockPrice++;
+            MoveStockPrice(true);
     }
 
     /// <summary>

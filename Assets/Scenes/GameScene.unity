@@ -2918,9 +2918,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443906258fd758e41bd38b9f1f0ab7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlPanel: {fileID: 1671558734}
   _turnManager: {fileID: 1887869331}
   _boardManager: {fileID: 1887869334}
+  _controlPanel: {fileID: 1671558734}
   _initialStockPrice: 1
 --- !u!114 &1887869333
 MonoBehaviour:
