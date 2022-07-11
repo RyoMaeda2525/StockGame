@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     int _stockPrice;
     /// <summary>自分の資産</summary>
     int _money;
+    /// <summary>他プレイヤー株の所持数</summary>
+    int[] _otherPrice = new int[]{ 0,0,0};
     void Start()
     {
         _controlPanel.SetActive(false);
