@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     int _stockPrice;
     /// <summary>自分の資産</summary>
     int _money;
-    /// <summary>他プレイヤー株の所持数</summary>
-    int[] _otherPrice = new int[]{ 0,0,0};
+    /// <summary>株の所持数(他プレイヤー株と種類を分けて記録)</summary>
+    int[] _otherPrice;
     void Start()
     {
         _controlPanel.SetActive(false);
@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _playerIndex = Array.IndexOf(PhotonNetwork.PlayerList, PhotonNetwork.LocalPlayer);
         _stockPrice = _initialStockPrice;
         _money = _initialMoney;
+        _otherPrice = new int[] { 0, 0, 0, 0 };
+        _otherPrice[_playerIndex] = 5;
     }
 
     /// <summary>
