@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     int _activePlayerIndex = -1;
     /// <summary>現在の自分の株価</summary>
     int _stockPrice;
+    /// <summary>自分の資産</summary>
+    int _money = 30000;
+
 
     void Start()
     {
