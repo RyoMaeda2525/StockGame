@@ -16,14 +16,14 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     [SerializeField] GameObject _controlPanel;
     /// <summary>株価の初期値</summary>
     [SerializeField] int _initialStockPrice = 2;
+    ///<summary> 資産の初期値</summary>
+    [SerializeField] int _initialMoney = 30000;
     /// <summary>プレイヤーの index。自分が何番目のプレイヤーかを表す。0スタートであり途中抜けを考慮していない。</summary>
     int _playerIndex = -1;
     /// <summary>現在何番目のプレイヤーが操作をしているか（0スタート。途中抜けを考慮していない）</summary>
     int _activePlayerIndex = -1;
     /// <summary>現在の自分の株価</summary>
     int _stockPrice;
-    ///<summary> 資産の初期値</summary>
-    int _initialMoney = 30000;
     /// <summary>自分の資産</summary>
     int _money;
     void Start()
