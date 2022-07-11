@@ -22,10 +22,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     int _activePlayerIndex = -1;
     /// <summary>現在の自分の株価</summary>
     int _stockPrice;
+    ///<summary> 資産の初期値</summary>
+    int _initialMoney = 30000;
     /// <summary>自分の資産</summary>
-    int _money = 30000;
-
-
+    int _money;
     void Start()
     {
         _controlPanel.SetActive(false);
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         Debug.Log("Initialize Game...");
         _playerIndex = Array.IndexOf(PhotonNetwork.PlayerList, PhotonNetwork.LocalPlayer);
         _stockPrice = _initialStockPrice;
+        _money = _initialMoney;
     }
 
     /// <summary>
