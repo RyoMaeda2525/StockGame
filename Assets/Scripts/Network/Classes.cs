@@ -35,6 +35,8 @@ public enum Command
 {
     /// <summary>株価を上げる</summary>
     Raise,
+    /// <summary>株を買う</summary>
     Buy,
+    /// <summary>株を売る</summary>
     Sell,
 }
