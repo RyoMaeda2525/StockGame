@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class BoardManager : MonoBehaviour
 {
+    [SerializeField] GameManager _gameManager;
     /// <summary>各プレイヤーの使う駒</summary>
     [SerializeField] Transform[] _marker;
     /// <summary>盤のルートとなるオブジェクト</summary>
@@ -13,11 +14,25 @@ public class BoardManager : MonoBehaviour
     /// <summary>盤</summary>
     RectTransform[] _priceTable;
 
-    void Start()
+    //void Start()
+    //{
+    //    // 盤のルートの子オブジェクトから、名前が "Price" で始まるものを配列に入れて奥
+    //    _priceTable = _tableRoot.GetComponentsInChildren<RectTransform>();
+    //    _priceTable = Array.FindAll(_priceTable, x => x.name.StartsWith("Price"));
+
+    //    for (int i = 0; i < _marker.Length; i++) ChangeStockPrice(i, _gameManager._initialStockPrice);
+    //}
+
+    /// <summary>
+    /// プレイヤーの人数に合わせて盤を作る 
+    /// </summary>
+    public void BoardRemake() 
     {
         // 盤のルートの子オブジェクトから、名前が "Price" で始まるものを配列に入れて奥
         _priceTable = _tableRoot.GetComponentsInChildren<RectTransform>();
         _priceTable = Array.FindAll(_priceTable, x => x.name.StartsWith("Price"));
+
+        for (int i = 0; i < _marker.Length; i++) ChangeStockPrice(i, _gameManager._initialStockPrice - 1);
     }
 
     /// <summary>
@@ -29,7 +44,8 @@ public class BoardManager : MonoBehaviour
     {
         // 「いくらに移動するか」のターゲットとなるオブジェクト（アンカー）を探し、駒をその子オブジェクトにすることで移動させる
         var targetAnchor = Array.Find<RectTransform>(_priceTable, x => x.name == $"Price {targetPlayer} {price}");
-        _marker[targetPlayer].transform.SetParent(targetAnchor.transform);
-        _marker[targetPlayer].localPosition = Vector3.zero;
+        //_marker[targetPlayer].transform.SetParent(targetAnchor.transform);
+        //_marker[targetPlayer].localPosition = Vector3.zero;
+        _marker[targetPlayer].transform.position = targetAnchor.transform.position; //子オブジェクトでは無く位置に移動させている
     }
 }
