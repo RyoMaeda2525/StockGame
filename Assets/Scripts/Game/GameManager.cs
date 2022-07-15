@@ -1,15 +1,17 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 // Photon 用の名前空間を参照する
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;    // PunTurnManager, IPunTurnManagerCallbacks を使うため
 using Photon.Realtime;
 
+
 /// <summary>
 /// ゲーム・ターンを管理するコンポーネント
 /// </summary>
 public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
-{
+{ 
     [SerializeField] PunTurnManager _turnManager;
     [SerializeField] BoardManager _boardManager;
     /// <summary>操作をするためのパネル (UI)</summary>
@@ -136,9 +138,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 指定した株を changeStock　の値分買う
     /// ボタンから呼ばれる。PunTurnManager に Move (Finish) を送る。
     /// </summary>
-    public void BuyStock(string value) 
+    public void OnBuyStock(int stockIndex , int chageValue) 
     {
-           
+        BuyStock(stockIndex , chageValue , true);
     }
 
     /// <summary>
@@ -147,7 +149,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="finished">true の時は自分の番を終わる</param>
     void MoveStockPrice(bool finished = true)
     {
-        Data data = new Data(Command.Raise, _playerIndex, _stockPrice);
+        Data data = new Data(Command.Raise , _playerIndex , 0  , _stockPrice);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);
@@ -158,9 +160,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 現在の自分の株価で PunTurnManager に Move を送る
     /// </summary>
     /// <param name="finished">true の時は自分の番を終わる</param>
-    void BuyStock(bool finished = true) 
+    void BuyStock(int stockIndex , int value , bool finished = true) 
     {
-        Data data = new Data(Command.Buy, _playerIndex, _stockPrice);
+        Data data = new Data(Command.Buy, _playerIndex, stockIndex , value);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);

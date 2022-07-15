@@ -6,7 +6,6 @@ using UnityEngine;
 /// </summary>
 public class BoardManager : MonoBehaviour
 {
-    [SerializeField] GameManager _gameManager;
     /// <summary>各プレイヤーの使う駒</summary>
     [SerializeField] Transform[] _marker;
     /// <summary>盤のルートとなるオブジェクト</summary>
