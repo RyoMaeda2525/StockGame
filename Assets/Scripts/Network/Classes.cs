@@ -10,6 +10,8 @@ public struct Data
     public Command Command;
     /// <summary>命令の対象となるプレイヤー</summary>
     public int TargetPlayer;
+    /// <summary>命令の対象となる株のIndex</summary>
+    public int TargetStock;
     /// <summary>命令の subject となる値</summary>
     public int Value;
 
@@ -18,11 +20,13 @@ public struct Data
     /// </summary>
     /// <param name="command"></param>
     /// <param name="targetPlayer"></param>
+    /// <param name="targetStock"></param>
     /// <param name="value"></param>
-    public Data(Command command, int targetPlayer, int value)
+    public Data(Command command, int targetPlayer, int targetStock , int value)
     {
         Command = command;
         TargetPlayer = targetPlayer;
+        TargetStock = targetStock;
         Value = value;
     }
 }
