@@ -31,8 +31,6 @@ public class BoardManager : MonoBehaviour
         // 盤のルートの子オブジェクトから、名前が "Price" で始まるものを配列に入れて奥
         _priceTable = _tableRoot.GetComponentsInChildren<RectTransform>();
         _priceTable = Array.FindAll(_priceTable, x => x.name.StartsWith("Price"));
-
-        for (int i = 0; i < _marker.Length; i++) ChangeStockPrice(i, _gameManager._initialStockPrice - 1);
     }
 
     /// <summary>
