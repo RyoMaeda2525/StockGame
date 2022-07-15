@@ -194,7 +194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "5\u679A\n"
+  m_Text: "0\u679A\n"
 --- !u!222 &13162381
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1241,7 +1241,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "5\u679A\n"
+  m_Text: "0\u679A\n"
 --- !u!222 &595294182
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1519,7 +1519,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "5\u679A\n"
+  m_Text: "0\u679A\n"
 --- !u!222 &680767923
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1733,7 +1733,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "5\u679A\n"
+  m_Text: "0\u679A\n"
 --- !u!222 &888086029
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1813,7 +1813,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u8CC7\u91D1     5000\u5186\n"
+  m_Text: "\u8CC7\u91D1     3000\u5186\n"
 --- !u!222 &921285737
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1893,7 +1893,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "5\u679A\n"
+  m_Text: "0\u679A\n"
 --- !u!222 &931036217
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2286,7 +2286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2655,17 +2655,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211778606}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1872126883}
-  m_RootOrder: 5
+  m_Father: {fileID: 1896252248}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -176.8, y: -350}
+  m_AnchoredPosition: {x: -473, y: -283}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1211778608
@@ -2681,7 +2681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2690,12 +2690,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 27
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -3343,7 +3343,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "5\u679A\n"
+  m_Text: "0\u679A\n"
 --- !u!222 &1563717180
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4030,7 +4030,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u8CC7\u91D1     5000\u5186\n"
+  m_Text: "\u8CC7\u91D1     3000\u5186\n"
 --- !u!222 &1674390341
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4190,7 +4190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "5\u679A\n"
+  m_Text: "0\u679A\n"
 --- !u!222 &1688308467
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4432,7 +4432,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u8CC7\u91D1     5000\u5186\n"
+  m_Text: "\u8CC7\u91D1     3000\u5186\n"
 --- !u!222 &1694743384
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4668,7 +4668,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u8CC7\u91D1     5000\u5186\n"
+  m_Text: "\u8CC7\u91D1     3000\u5186\n"
 --- !u!222 &1821779346
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4834,7 +4834,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "5\u679A\n"
+  m_Text: "0\u679A\n"
 --- !u!222 &1855887632
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4878,14 +4878,13 @@ RectTransform:
   - {fileID: 1689636805}
   - {fileID: 1452924468}
   - {fileID: 297530642}
-  - {fileID: 1211778607}
   m_Father: {fileID: 1896252248}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -300.00006, y: 68.0137}
-  m_SizeDelta: {x: -599.9999, y: -136.0275}
+  m_AnchoredPosition: {x: -300.00006, y: 97.293}
+  m_SizeDelta: {x: -599.9999, y: -194.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1872126886
 MonoBehaviour:
@@ -4900,7 +4899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5125,6 +5124,7 @@ RectTransform:
   - {fileID: 1872126883}
   - {fileID: 1874149829}
   - {fileID: 1096252442}
+  - {fileID: 1211778607}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5204,7 +5204,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "5\u679A\n"
+  m_Text: "0\u679A\n"
 --- !u!222 &2014691740
 CanvasRenderer:
   m_ObjectHideFlags: 0
