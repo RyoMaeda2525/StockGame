@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
                 break;
 
             case Command.Buy:
-                Buystock(data.TargetPlayer,data.Value);
+                Buystock(data.TargetPlayer,data.TargetPlayer,data.Value);
                 break;
 
             case Command.Sell:
@@ -106,16 +106,11 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 株を指定した分買う
     /// </summary>
     /// <param name="playerIndex">株価を変えたいプレイヤーの index</param>
-    /// <param name="stockIndex">変動した持ち株の種類の index</param>
-    /// <param name="changeStock">この値分株を買う</param>
-    void BuyStock(int playerIndex, int stockIndex, int changeStock)
+    /// <param name="stockIndex">変動した持ち株の種類の index(まだ参照はしていない)</param>
+    /// <param name="stock">この値分株を買う</param>
+    void Buystock(int playerIndex, int stockIndex, int stock)
     {
-        print($"Buy player {playerIndex}'s {stockIndex} stock to {changeStock}");
-    }
-
-    void Buystock(int playerIndex, int stock)
-    {
-        print($"player{playerIndex}は、株を{stock}個買った。");
+        print($"player{playerIndex}は、player{stockIndex}の株を{stock}個買った。");
     }
     /// <summary>
     /// 持ち株を指定した分売る
@@ -142,16 +137,17 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
         _money = _money - _stockPrice;
         _otherPrice[_playerIndex]++;
+        MoveBuyStock(true);
     }
 
     /// <summary>
     /// 指定した株を changeStock　の値分買う
     /// ボタンから呼ばれる。PunTurnManager に Move (Finish) を送る。
     /// </summary>
-    public void OnBuyStock(int stockIndex , int chageValue) 
-    {
-        BuyStock(stockIndex , chageValue , true);
-    }
+    //public void OnBuyStock(int stockIndex , int chageValue) 
+    //{
+    //    BuyStock(stockIndex , chageValue , true);
+    //}
 
     /// <summary>
     /// 現在の自分の株価で PunTurnManager に Move を送る
@@ -170,9 +166,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 現在の自分の株価で PunTurnManager に Move を送る
     /// </summary>
     /// <param name="finished">true の時は自分の番を終わる</param>
-    void BuyStock(int stockIndex , int value , bool finished = true) 
+    void MoveBuyStock(bool finished = true) 
     {
-        Data data = new Data(Command.Buy, _playerIndex, stockIndex , value);
+        Data data = new Data(Command.Buy, _playerIndex,0,1);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);
