@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GameScene.unity
     guid: 2562e392f2746ac44b806a0e62ecff98
-  - enabled: 1
+  - enabled: 0
     path: Assets/Maeda/Scene/TestScene.unity
     guid: 766dd9d5542bc0c4292d3f5b496fd35f
+  - enabled: 1
+    path: Assets/Hishitani/Scene/GameScene 1.unity
+    guid: 06772375e1667c346b47bbf48fb4f289
   m_configObjects: {}
