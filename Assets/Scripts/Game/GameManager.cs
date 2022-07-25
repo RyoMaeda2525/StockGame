@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
                 break;
 
             case Command.Buy:
-
+                Buystock(data.TargetPlayer,data.Value);
                 break;
 
             case Command.Sell:
@@ -113,6 +113,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         print($"Buy player {playerIndex}'s {stockIndex} stock to {changeStock}");
     }
 
+    void Buystock(int playerIndex, int stock)
+    {
+        print($"player{playerIndex}は、株を{stock}個買った。");
+    }
     /// <summary>
     /// 持ち株を指定した分売る
     /// </summary>
@@ -132,6 +136,12 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
             _stockPrice++;
             MoveStockPrice(true);
+    }
+
+    public void BuyStock(bool finished = true)
+    {
+        _money = _money - _stockPrice;
+        _otherPrice[_playerIndex]++;
     }
 
     /// <summary>
