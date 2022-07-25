@@ -1,15 +1,17 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 // Photon 用の名前空間を参照する
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;    // PunTurnManager, IPunTurnManagerCallbacks を使うため
 using Photon.Realtime;
 
+
 /// <summary>
 /// ゲーム・ターンを管理するコンポーネント
 /// </summary>
 public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
-{
+{ 
     [SerializeField] PunTurnManager _turnManager;
     [SerializeField] BoardManager _boardManager;
     /// <summary>操作をするためのパネル (UI)</summary>
@@ -75,6 +77,14 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
             case Command.Raise:
                 ChangeStockPrice(data.TargetPlayer, data.Value);
                 break;
+
+            case Command.Buy:
+
+                break;
+
+            case Command.Sell:
+                
+            break;
             default:
                 Debug.LogError($"Invalid command: {data.Command.ToString()}");
                 break;
@@ -93,6 +103,28 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     }
 
     /// <summary>
+    /// 株を指定した分買う
+    /// </summary>
+    /// <param name="playerIndex">株価を変えたいプレイヤーの index</param>
+    /// <param name="stockIndex">変動した持ち株の種類の index</param>
+    /// <param name="changeStock">この値分株を買う</param>
+    void BuyStock(int playerIndex, int stockIndex, int changeStock)
+    {
+        print($"Buy player {playerIndex}'s {stockIndex} stock to {changeStock}");
+    }
+
+    /// <summary>
+    /// 持ち株を指定した分売る
+    /// </summary>
+    /// <param name="playerIndex">株価を変えたいプレイヤーの index</param>
+    /// <param name="stockIndex">変動した持ち株の種類の index</param>
+    /// <param name="changeStock">この値分株を売る</param>
+    void SellStock(int playerIndex, int stockIndex, int changeStock)
+    {
+        print($"Sell player {playerIndex}'s {stockIndex} stock to {changeStock}");
+    }
+
+    /// <summary>
     /// 株価を 1 上げる
     /// ボタンから呼ばれる。PunTurnManager に Move (Finish) を送る。
     /// </summary>
@@ -103,12 +135,34 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     }
 
     /// <summary>
+    /// 指定した株を changeStock　の値分買う
+    /// ボタンから呼ばれる。PunTurnManager に Move (Finish) を送る。
+    /// </summary>
+    public void OnBuyStock(int stockIndex , int chageValue) 
+    {
+        BuyStock(stockIndex , chageValue , true);
+    }
+
+    /// <summary>
     /// 現在の自分の株価で PunTurnManager に Move を送る
     /// </summary>
     /// <param name="finished">true の時は自分の番を終わる</param>
     void MoveStockPrice(bool finished = true)
     {
-        Data data = new Data(Command.Raise, _playerIndex, _stockPrice);
+        Data data = new Data(Command.Raise , _playerIndex , 0  , _stockPrice);
+        string json = JsonUtility.ToJson(data);
+        print($"Serialized. json: {json}");
+        _turnManager.SendMove(json, finished);
+        _controlPanel.SetActive(!finished);
+    }
+
+    /// <summary>
+    /// 現在の自分の株価で PunTurnManager に Move を送る
+    /// </summary>
+    /// <param name="finished">true の時は自分の番を終わる</param>
+    void BuyStock(int stockIndex , int value , bool finished = true) 
+    {
+        Data data = new Data(Command.Buy, _playerIndex, stockIndex , value);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);
