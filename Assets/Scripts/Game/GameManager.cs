@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
             MoveStockPrice(true);
     }
 
-    public void BuyStock(bool finished = true)
+    public void BuyStock(bool finished = true)//次回、ここがboolじゃなくてintになる(相手のplayerIndexとその株の価格と買う個数)
     {
         _money = _money - _stockPrice;
         _otherPrice[_playerIndex]++;
