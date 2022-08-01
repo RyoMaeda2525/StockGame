@@ -29,4 +29,14 @@ public class TitleInputField : MonoBehaviour
         else Debug.Log("部屋名とニックネームを入力してください。");       
     }
 
+    public void RandomJoinOrCreate(int a) 
+    {
+        if (_nickName.text != "")
+        {
+            SceneManager.LoadScene(a);
+            _ngmt.JoinExistingRoom();
+        }
+        else Debug.Log("ニックネームを入力してください。");
+    }
+
 }
