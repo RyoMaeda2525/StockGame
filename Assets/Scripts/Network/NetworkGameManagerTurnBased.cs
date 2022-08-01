@@ -143,11 +143,11 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     /// 受け取った部屋名の部屋がなければ作りあれば入室する
     /// </summary>
     /// <param name="roomid"></param>
-    public void OnJoinOrCreateRoom(string roomid) 
+    public void OnJoinOrCreateRoom(string roomid , string nickName) 
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsVisible = false;
-        SetMyNickName(roomid);
+        SetMyNickName(nickName);
         PhotonNetwork.JoinOrCreateRoom(roomid, roomOptions, null);
     }
 

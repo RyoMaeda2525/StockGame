@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TitleInputField : MonoBehaviour
 {
     [SerializeField] InputField _roomId = default;
+
+    [SerializeField] InputField _nickName = default;
 
     [SerializeField] NetworkGameManagerTurnBased _ngmt = default;
 
@@ -16,9 +19,14 @@ public class TitleInputField : MonoBehaviour
         //_ngmt = GetComponent<NetworkGameManagerTurnBased>();
     }
 
-    public void RoomJoinOrCreate()
+    public void RoomJoinOrCreate(int a)
     {
-        _ngmt.OnJoinOrCreateRoom(_roomId.text);
+        if (_roomId.text != "" && _nickName.text != "")
+        {
+            SceneManager.LoadScene(a);
+            _ngmt.OnJoinOrCreateRoom(_roomId.text, _nickName.text);
+        }
+        else Debug.Log("部屋名とニックネームを入力してください。");       
     }
 
 }
