@@ -149,31 +149,39 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _money += targetStockPrice * StockNumber[0];
         _otherPrice[targetIndex] -= StockNumber[0];
         MoveSellStock(true);
+        //MoveSellStock(true,targetInex,StockNumber)
     }
 
 
 
-
-    /*pudlic void BuyStock(int targetIndex, int targetStockPrice, int[] StockNumber)
-     {
-        if(_money - targeetStockPrice * StockNumber[0]<0)
-       {
-            DebugLog("買えねえよ");
-        }else
+    /// <summary>
+    /// 株を指定数買う
+    /// </summary>
+    /// <param name="targetIndex">株の種類</param>
+    /// <param name="targetStockPrice">その株の値段</param>
+    /// <param name="StockNumber">個数</param>
+    public void StockBuy(int targetIndex, int targetStockPrice, int[] StockNumber)
+    {
+        if (_money - targetStockPrice * StockNumber[0] < 0)
         {
-            _money = _money - targeetStockPrice * StockNumber[0];
-            _otherPrice[targetIndex]+=StockNumbr[0];
-            MoveBuyStock(true);
+            Debug.Log("買えねえよ");
         }
-    引数intに出来たらこっちに変える
-     */
-    public void BuyStock(bool finished = true)//次回、ここがboolじゃなくてintになる(相手のplayerIndexとその株の価格と買う個数)
+        else
+        {
+            _money = _money - targetStockPrice * StockNumber[0];
+            _otherPrice[targetIndex] += StockNumber[0];
+            MoveBuyStock(true);
+            //MoveBuyStock(true,targetInex,StockNumber)
+        }
+    }
+     
+    /*public void BuyStock(bool finished = true)//次回、ここがboolじゃなくてintになる(相手のplayerIndexとその株の価格と買う個数)
     {
         _money = _money - _stockPrice[0];
         _otherPrice[_playerIndex]++;
         MoveBuyStock(true);
     }
-
+    */
     /// <summary>
     /// 指定した株を changeStock　の値分買う
     /// ボタンから呼ばれる。PunTurnManager に Move (Finish) を送る。
