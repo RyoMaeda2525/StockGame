@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="stock">この個数分買う</param>
     void BuyStock(int playerIndex, int stockIndex, int[] stock)
     {
-        print($"player{playerIndex}は、player{stockIndex}の株を{stock[0]}個買った。");
+        print($"player{playerIndex+1}は、player{stockIndex+1}の株を{stock[0]}個買った。");
     }
     /// <summary>
     /// 持ち株を指定した分売る
@@ -122,9 +122,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="playerIndex">株価を変えたいプレイヤーの index</param>
     /// <param name="stockIndex">変動した持ち株の種類の index</param>
     /// <param name="changeStock">この値分株を売る</param>
-    void SellStock(int playerIndex, int stockIndex, int[] changeStock)
+    void SellStock(int playerIndex, int stockIndex, int[] Stock)
     {
-        print($"player {playerIndex}は、player {stockIndex} の株を {changeStock[0]}個売った");
+        print($"player {playerIndex+1}は、player {stockIndex+1} の株を {Stock[0]}個売った");
     }
 
     /// <summary>
@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         }else
         {
             _money = _money - targeetStockPrice * StockNumber[0];
-            _otherPrice[targetIndex]++;
+            _otherPrice[targetIndex]+=StockNumbr[0];
             MoveBuyStock(true);
         }
     引数intに出来たらこっちに変える
