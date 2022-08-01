@@ -147,6 +147,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsVisible = false;
+        SetMyNickName(roomid);
         PhotonNetwork.JoinOrCreateRoom(roomid, roomOptions, null);
     }
 
@@ -160,7 +161,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnConnected()
     {
         Debug.Log("OnConnected");
-        SetMyNickName(System.Environment.UserName + "@" + System.Environment.MachineName);
+        //SetMyNickName(System.Environment.UserName + "@" + System.Environment.MachineName);
     }
 
     /// <summary>Photon との接続が切れた時</summary>
