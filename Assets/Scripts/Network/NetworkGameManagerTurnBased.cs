@@ -13,6 +13,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
 {
     /// <summary>プレイ可能な最大人数</summary>
     [SerializeField] int _maxPlayers = 2;
+    private LoadBalancingClient loadBalancingClient;
     PunTurnManager _turnManager = default;
 
     private void Awake()
@@ -67,10 +68,10 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     /// </summary>
     private void JoinExistingRoom()
     {
-        if (PhotonNetwork.IsConnected)
-        {
-            PhotonNetwork.JoinRandomRoom();
-        }
+        //if (PhotonNetwork.IsConnected)
+        //{
+        //    PhotonNetwork.JoinRandomRoom();
+        //}
     }
 
     /// <summary>
@@ -78,6 +79,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     /// </summary>
     private void CreateRandomRoom()
     {
+        Debug.Log("CreateRoom");
         if (PhotonNetwork.IsConnected)
         {
             RoomOptions roomOptions = new RoomOptions();
@@ -138,6 +140,18 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
         }
     }
 
+    /// <summary>
+    /// 受け取った部屋名の部屋がなければ作りあれば入室する
+    /// </summary>
+    /// <param name="roomid"></param>
+    public void OnJoinOrCreateRoom(string roomid , string nickName) 
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.IsVisible = false;
+        SetMyNickName(nickName);
+        PhotonNetwork.JoinOrCreateRoom(roomid, roomOptions, null);
+    }
+
     /* ***********************************************
      * 
      * これ以降は Photon の Callback メソッド
@@ -148,7 +162,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnConnected()
     {
         Debug.Log("OnConnected");
-        SetMyNickName(System.Environment.UserName + "@" + System.Environment.MachineName);
+        //SetMyNickName(System.Environment.UserName + "@" + System.Environment.MachineName);
     }
 
     /// <summary>Photon との接続が切れた時</summary>
@@ -189,6 +203,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
         Debug.Log("OnCreateRoomFailed: " + message);
     }
 
+    /// <summary>部屋に入室した時</summary>
     /// <summary>部屋に入室した時</summary>
     public override void OnJoinedRoom()
     {
