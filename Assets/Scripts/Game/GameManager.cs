@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     int _money;
     /// <summary>株の所持数(他プレイヤー株と種類を分けて記録)</summary>
     int[] _otherPrice;
-    /// <summary>買った株の数</summary>
-    int[] _BuyPrice;
     void Start()
     {
         _controlPanel.SetActive(false);
@@ -148,8 +146,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
         _money += targetStockPrice * StockNumber[0];
         _otherPrice[targetIndex] -= StockNumber[0];
-        MoveSellStock(true);
-        //MoveSellStock(true,targetInex,StockNumber)
+
+        MoveSellStock(targetIndex, StockNumber, true);
     }
 
 
@@ -170,8 +168,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         {
             _money = _money - targetStockPrice * StockNumber[0];
             _otherPrice[targetIndex] += StockNumber[0];
-            MoveBuyStock(true);
-            //MoveBuyStock(true,targetInex,StockNumber)
+            MoveBuyStock(targetIndex, StockNumber, true);
         }
     }
      
@@ -181,7 +178,6 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _otherPrice[_playerIndex]++;
         MoveBuyStock(true);
     }
-    */
     /// <summary>
     /// 指定した株を changeStock　の値分買う
     /// ボタンから呼ばれる。PunTurnManager に Move (Finish) を送る。
@@ -190,7 +186,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     //{
     //    BuyStock(stockIndex , chageValue , true);
     //}
-
+    */
     /// <summary>
     /// 現在の自分の株価で PunTurnManager に Move を送る
     /// </summary>
@@ -208,9 +204,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 現在の自分の株数で PunTurnManager に Move を送る
     /// </summary>
     /// <param name="finished">true の時は自分の番を終わる</param>
-    void MoveBuyStock(bool finished = true) 
+    void MoveBuyStock(int targetIndex, int[] BuyPrice, bool finished = true) 
     {
-        Data data = new Data(Command.Buy, _playerIndex,0,_BuyPrice);
+        Data data = new Data(Command.Buy, _playerIndex,targetIndex,BuyPrice);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);
@@ -221,9 +217,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 現在の自分の株数で PunTurnManager に Move を送る
     /// </summary>
     /// <param name="finished">true の時は自分の番を終わる</param>
-    void MoveSellStock(bool finished = true)
+    void MoveSellStock(int targetIndex, int[] SellPrice, bool finished = true)
     {
-        Data data = new Data(Command.Sell, _playerIndex, 0, _BuyPrice);
+        Data data = new Data(Command.Sell, _playerIndex, targetIndex, SellPrice);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);
