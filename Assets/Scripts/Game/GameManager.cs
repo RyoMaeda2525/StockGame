@@ -25,11 +25,13 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <summary>現在何番目のプレイヤーが操作をしているか（0スタート。途中抜けを考慮していない）</summary>
     int _activePlayerIndex = -1;
     /// <summary>現在の自分の株価</summary>
-    int _stockPrice;
+    int[] _stockPrice;
     /// <summary>自分の資産(_money/千円)</summary>
     int _money;
     /// <summary>株の所持数(他プレイヤー株と種類を分けて記録)</summary>
     int[] _otherPrice;
+    /// <summary>買った株の数</summary>
+    int[] _BuyPrice;
     void Start()
     {
         _controlPanel.SetActive(false);
@@ -42,7 +44,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
         Debug.Log("Initialize Game...");
         _playerIndex = Array.IndexOf(PhotonNetwork.PlayerList, PhotonNetwork.LocalPlayer);
-        _stockPrice = _initialStockPrice;
+        _stockPrice = new int[2];
+        _stockPrice[0] = _initialStockPrice;
         _money = _initialMoney;
         _otherPrice = new int[] { 0, 0, 0, 0 };
         _otherPrice[_playerIndex] = 5;
@@ -96,10 +99,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     /// <param name="playerIndex">株価を変えたいプレイヤーの index</param>
     /// <param name="targetPrice">この値に株価を変更する</param>
-    void ChangeStockPrice(int playerIndex, int targetPrice)
+    void ChangeStockPrice(int playerIndex, int[] targetPrice)
     {
         print($"Raise player {playerIndex}'s stock to {targetPrice}");
-        _boardManager.ChangeStockPrice(playerIndex, targetPrice);
+        _boardManager.ChangeStockPrice(playerIndex, targetPrice[0]);
     }
 
     /// <summary>
@@ -108,9 +111,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="playerIndex">株価を変えたいプレイヤーの index</param>
     /// <param name="stockIndex">変動した持ち株の種類の index(まだ参照はしていない)</param>
     /// <param name="stock">この値分株を買う</param>
-    void Buystock(int playerIndex, int stockIndex, int stock)
+    void Buystock(int playerIndex, int stockIndex, int[] stock)
     {
-        print($"player{playerIndex}は、player{stockIndex}の株を{stock}個買った。");
+        print($"player{playerIndex}は、player{stockIndex}の株を{stock[0]}個買った。");
     }
     /// <summary>
     /// 持ち株を指定した分売る
@@ -129,18 +132,18 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     public void RaiseStock(bool finished = true)
     {
-            _stockPrice++;
+            _stockPrice[0]+= 1;
             MoveStockPrice(true);
     }
 
-    /*pudlic void BuyStock(int targetIndex, int targetStockPrice, int StockNumber)
+    /*pudlic void BuyStock(int targetIndex, int targetStockPrice, int[] StockNumber)
      {
-        if(_money - targeetStockPrice * StockNumber<0)
+        if(_money - targeetStockPrice * StockNumber[0]<0)
        {
             DebugLog("買えねえよ");
         }else
         {
-            _money = _money - targeetStockPrice * StockNumber;
+            _money = _money - targeetStockPrice * StockNumber[0];
             _otherPrice[targetIndex]++;
             MoveBuyStock(true);
         }
@@ -148,7 +151,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
      */
     public void BuyStock(bool finished = true)//次回、ここがboolじゃなくてintになる(相手のplayerIndexとその株の価格と買う個数)
     {
-        _money = _money - _stockPrice;
+        _money = _money - _stockPrice[0];
         _otherPrice[_playerIndex]++;
         MoveBuyStock(true);
     }
@@ -181,7 +184,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="finished">true の時は自分の番を終わる</param>
     void MoveBuyStock(bool finished = true) 
     {
-        Data data = new Data(Command.Buy, _playerIndex,0,1);
+        Data data = new Data(Command.Buy, _playerIndex,0,_BuyPrice);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);
