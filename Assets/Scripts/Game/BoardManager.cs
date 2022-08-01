@@ -44,8 +44,18 @@ public class BoardManager : MonoBehaviour
     {
         // 「いくらに移動するか」のターゲットとなるオブジェクト（アンカー）を探し、駒をその子オブジェクトにすることで移動させる
         var targetAnchor = Array.Find<RectTransform>(_priceTable, x => x.name == $"Price {targetPlayer} {price}");
-        //_marker[targetPlayer].transform.SetParent(targetAnchor.transform);
-        //_marker[targetPlayer].localPosition = Vector3.zero;
         _marker[targetPlayer].transform.position = targetAnchor.transform.position; //子オブジェクトでは無く位置に移動させている
+    }
+
+    private void StockPriceSearch(int targetPlayer)
+    {
+        foreach (var a in _priceTable)
+        {
+            if (_marker[targetPlayer].transform.position == a.transform.position)
+            {
+                var strings = a.name.Split(" ");
+                Debug.Log(strings[2] + 1);
+            }
+        }
     }
 }

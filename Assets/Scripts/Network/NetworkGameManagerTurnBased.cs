@@ -68,10 +68,10 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     /// </summary>
     private void JoinExistingRoom()
     {
-        //if (PhotonNetwork.IsConnected)
-        //{
-        //    PhotonNetwork.JoinRandomRoom();
-        //}
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
     }
 
     /// <summary>
