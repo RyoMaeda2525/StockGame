@@ -4,11 +4,12 @@ public class Dice : MonoBehaviour
 {
     [SerializeField] GameObject _dicePrefab = null;
     [SerializeField] Transform[] _diceTrans;
+
     // Start is called before the first frame update
-    void Start()
-    {
-        RollDice();
-    }
+    //void Start()
+    //{
+    //    RollDice();
+    //}
 
     // Update is called once per frame
     void Update()
@@ -19,10 +20,10 @@ public class Dice : MonoBehaviour
     {
         foreach(Transform a in _diceTrans)
         {
-            int diceNum = Random.Range (1,7) ;
-            GameObject dice = Instantiate( _dicePrefab,a);
+            int diceNum = Random.Range (1,7) ;//ランダムで１～６の整数を出す
+            GameObject dice = Instantiate( _dicePrefab,a);//サイコロを生成
             Animator anim = dice.GetComponent<Animator>();
-            switch(diceNum)
+            switch(diceNum)//出た目に応じてアニメーションを再生
             {
                 case 1:
                     anim.SetTrigger("No1");
