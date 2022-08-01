@@ -159,17 +159,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="targetStockPrice">その株の値段</param>
     /// <param name="StockNumber">個数</param>
     public void StockBuy(int targetIndex, int targetStockPrice, int[] StockNumber)
-    {
-        if (_money - targetStockPrice * StockNumber[0] < 0)
-        {
-            Debug.Log("買えねえよ");
-        }
-        else
-        {
-            _money = _money - targetStockPrice * StockNumber[0];
-            _otherPrice[targetIndex] += StockNumber[0];
-            MoveBuyStock(targetIndex, StockNumber, true);
-        }
+    {        
+        _money = _money - targetStockPrice * StockNumber[0];
+        _otherPrice[targetIndex] += StockNumber[0];
+        MoveBuyStock(targetIndex, StockNumber, true);
     }
      
     /*public void BuyStock(bool finished = true)//次回、ここがboolじゃなくてintになる(相手のplayerIndexとその株の価格と買う個数)
