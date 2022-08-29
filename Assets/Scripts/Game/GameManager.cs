@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _stockPrice = new int[4];
         _stockPrice[0] = _initialStockPrice;
         _money = _initialMoney;
-        _otherPrice = new int[] { 0, 0, 0, 0 };
+        _otherPrice = new int[4];
         _otherPrice[_playerIndex] = 5;
     }
 
