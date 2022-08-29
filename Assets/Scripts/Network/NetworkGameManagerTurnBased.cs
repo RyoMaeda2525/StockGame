@@ -66,12 +66,12 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     /// <summary>
     /// 既に存在する部屋に参加する
     /// </summary>
-    private void JoinExistingRoom()
+    public void JoinExistingRoom()
     {
-        //if (PhotonNetwork.IsConnected)
-        //{
-        //    PhotonNetwork.JoinRandomRoom();
-        //}
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
     }
 
     /// <summary>
@@ -182,7 +182,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnJoinedLobby()
     {
         Debug.Log("OnJoinedLobby");
-        JoinExistingRoom();
+        
     }
 
     /// <summary>ロビーから出た時</summary>
