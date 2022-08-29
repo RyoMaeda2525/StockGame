@@ -58,4 +58,19 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
+    public int StockPrice(int targetPlayer)
+    {
+        int x = 0;
+        foreach (var a in _priceTable)
+        {
+            
+            if (_marker[targetPlayer].transform.position == a.transform.position)
+            {
+                var strings = a.name.Split(" ");
+                x = (int.Parse(strings[2]) +1) * 1000;
+                
+            }
+        }
+        return x;
+    }
 }
