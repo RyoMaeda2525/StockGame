@@ -17,7 +17,7 @@ public class PlayerUIManager : MonoBehaviour
     Text[] _playerNickName;
 
     [SerializeField, Tooltip("プレイヤーの情報を表示するタグの配列")]
-    GameObject[] _playerTags;
+    PlayerPanelManagar[] _playerTags;
 
     int _stockIndex = -1;
 
