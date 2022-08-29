@@ -13,6 +13,12 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField , Tooltip("ゲーム画面には表示されずstringを渡すのに使うText")]
     Text _forSendingText = default;
 
+    [SerializeField, Tooltip("プレイヤーのニックネームを入れる配列")]
+    Text[] _playerNickName;
+
+    [SerializeField, Tooltip("プレイヤーの情報を表示するタグの配列")]
+    GameObject[] _playerTags;
+
     int _stockIndex = -1;
 
     void StockSelect(int value)
@@ -28,4 +34,11 @@ public class PlayerUIManager : MonoBehaviour
             _forSendingText.text =  _stockIndex.ToString() + " " + x.ToString();
         } 
     }
+
+    //public void NameSet() 
+    //{
+    //    var playerList = PhotonNetwork.PlayerList;
+
+    //    for (int i = 0;)
+    //}
 }
