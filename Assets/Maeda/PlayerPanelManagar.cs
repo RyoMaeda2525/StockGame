@@ -14,12 +14,12 @@ public class PlayerPanelManagar : MonoBehaviour
     /// <summary>
     /// ‘‹à‚Æ‚¿Š”‚Ì•Ï“®‚ğó‚¯‚Æ‚é
     /// </summary>
-    /// <param name="money"></param>
+    /// <param name="fund"></param>
     /// <param name="stockType"></param>
     /// <param name="stockIndex"></param>
-    public void MoneyAndStockChange(int money , int stockType , int stockIndex) 
+    public void FundAndStockChange(int stockType , int stockIndex , int fund) 
     {
-        _fundText.text = money.ToString();
+        _fundText.text = fund.ToString();
         _stockTypes[stockType].text = stockIndex.ToString();
     }
 }
