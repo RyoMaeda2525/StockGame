@@ -42,10 +42,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
         Debug.Log("Initialize Game...");
         _playerIndex = Array.IndexOf(PhotonNetwork.PlayerList, PhotonNetwork.LocalPlayer);
-        _stockPrice = new int[2];
+        _stockPrice = new int[4];
         _stockPrice[0] = _initialStockPrice;
         _money = _initialMoney;
-        _otherPrice = new int[] { 0, 0, 0, 0 };
+        _otherPrice = new int[4];
         _otherPrice[_playerIndex] = 5;
     }
 
@@ -150,6 +150,15 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         MoveSellStock(targetIndex, StockNumber, true);
     }
 
+
+    ///<summary>
+    /// 戦う
+    /// </summary>
+    ///
+    public void Battle(int playerIndex, int targetIndex, int[] dise)
+    {
+
+    }
 
 
     /// <summary>
