@@ -1403,8 +1403,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a35c31d7189ba47842c508b8d5afa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quantityText: {fileID: 1291069642}
-  checkText: {fileID: 1148156291}
+  _quantityText: {fileID: 1291069642}
+  _checkText: {fileID: 1148156291}
+  _priceText: {fileID: 334990674}
+  _system: {fileID: 1887869329}
 --- !u!1 &627015584
 GameObject:
   m_ObjectHideFlags: 0
@@ -2678,7 +2680,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1239110678}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 598022656}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1239110678
 MonoBehaviour:
   m_ObjectHideFlags: 0
