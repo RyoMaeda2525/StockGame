@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class PlayerUIManager : MonoBehaviour
 {
+    public static PlayerUIManager instance;
+
     [SerializeField] GameManager _gameManager;
 
     [SerializeField , Tooltip("入力された値を格納する")]
@@ -19,21 +22,24 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField, Tooltip("プレイヤーの情報を受け取るscript群")]
     PlayerPanelManagar[] _playerTags;
 
-    int _stockIndex = -1;
+    /// <summary>プレイヤーの名前や入室順が分かる配列/// </summary>
+    public Photon.Realtime.Player[] _playerArray;
 
-    void StockSelect(int value)
-    {
-        _stockIndex = value;
-    }
+    //int _stockIndex = -1;
 
-    void BuyOrSell() 
-    {
-        int x = int.Parse(_inputField.text);
-        if (x != 0) 
-        {
-            _forSendingText.text =  _stockIndex.ToString() + " " + x.ToString();
-        } 
-    }
+    //void StockSelect(int value)
+    //{
+    //    _stockIndex = value;
+    //}
+
+    //void BuyOrSell() 
+    //{
+    //    int x = int.Parse(_inputField.text);
+    //    if (x != 0) 
+    //    {
+    //        _forSendingText.text =  _stockIndex.ToString() + " " + x.ToString();
+    //    } 
+    //}
 
     public void PlayerInfoChange(int targetIndex , int stockType, int stockValue , int fund) 
     {
@@ -43,10 +49,14 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
-    //public void NameSet() 
-    //{
-    //    var playerList = PhotonNetwork.PlayerList;
+    /// <summary>入室,退出時に名前を入れる関数/// </summary>
+    public void NameSet()
+    {
+        _playerArray = PhotonNetwork.PlayerList;
 
-    //    for (int i = 0;)
-    //}
+        for (int i = 0; i < _playerArray.Length; i++) 
+        {
+            _playerNickName[i].text = _playerArray[i].NickName;
+        }
+    }
 }

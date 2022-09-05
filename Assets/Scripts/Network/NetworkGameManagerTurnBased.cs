@@ -208,6 +208,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom");
+        PlayerUIManager.instance.NameSet();
         SetupTurnManager();
     }
 
@@ -234,6 +235,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("OnPlayerEnteredRoom: " + newPlayer.NickName);
+        PlayerUIManager.instance.NameSet();
 
         if (PhotonNetwork.CurrentRoom.PlayerCount >= _maxPlayers)
         {
@@ -245,6 +247,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log("OnPlayerLeftRoom: " + otherPlayer.NickName);
+        PlayerUIManager.instance.NameSet();
     }
 
     /// <summary>マスタークライアントが変わった時</summary>
