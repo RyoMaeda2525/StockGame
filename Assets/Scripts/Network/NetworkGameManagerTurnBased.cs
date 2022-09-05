@@ -5,6 +5,7 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;    // TurnManager のため
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Photon.Pun.UtilityScripts.PunTurnManager を使った turn-based なゲームを初期化するコンポーネント
@@ -48,7 +49,8 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
         if (PhotonNetwork.IsConnected)
         {
             Debug.Log("nickName: " + nickName);
-            PhotonNetwork.LocalPlayer.NickName = nickName;
+            PhotonNetwork.NickName = nickName;
+            //PhotonNetwork.LocalPlayer.NickName = nickName;
         }
     }
 
@@ -66,10 +68,11 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     /// <summary>
     /// 既に存在する部屋に参加する
     /// </summary>
-    public void JoinExistingRoom()
+    public void JoinExistingRoom(string nickName)
     {
         if (PhotonNetwork.IsConnected)
         {
+            SetMyNickName(nickName);
             PhotonNetwork.JoinRandomRoom();
         }
     }
@@ -208,6 +211,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom");
+        Debug.Log(SceneManager.GetActiveScene().name);
         PlayerUIManager.instance.NameSet();
         SetupTurnManager();
     }
@@ -246,8 +250,8 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     /// <summary>自分のいる部屋から他のプレイヤーが退室した時</summary>
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Debug.Log("OnPlayerLeftRoom: " + otherPlayer.NickName);
         PlayerUIManager.instance.NameSet();
+        Debug.Log("OnPlayerLeftRoom: " + otherPlayer.NickName);
     }
 
     /// <summary>マスタークライアントが変わった時</summary>
