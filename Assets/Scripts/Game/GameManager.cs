@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _stockPrice = new int[4];
         _stockPrice[0] = _initialStockPrice;
         _money = _initialMoney;
-        _otherPrice = new int[4];
+        _otherPrice = new int[4] {0,0,0,0};
         _otherPrice[_playerIndex] = 5;
     }
 
@@ -155,8 +155,18 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 戦う
     /// </summary>
     ///
-    public void Battle(int playerIndex, int targetIndex, int[] dise)
+    public void Battle(int targetIndex, int targetStockPrice, int[] dise)
     {
+        if(dise[0] + dise[1] > dise[2] + dise[3])
+        {
+            _stockPrice[targetIndex] -= 2; 
+            //自分が勝った時のプログラム
+        }
+        else
+        {
+            _stockPrice[_playerIndex]--;
+            //相手が勝った時のプログラム
+        }
 
     }
 
