@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void BuyStock(int playerIndex, int stockIndex, int[] stock)
     {
         print($"player{playerIndex+1}は、player{stockIndex+1}の株を{stock[0]}個買った。");
+        PlayerUIManager.instance.BuyStockChange(playerIndex,stockIndex,stock[0]);
     }
     /// <summary>
     /// 戦って株が減る
@@ -159,6 +160,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void SellStock(int playerIndex, int stockIndex, int[] Stock)
     {
         print($"player {playerIndex+1}は、player {stockIndex+1} の株を {Stock[0]}個売った");
+        PlayerUIManager.instance.SellStockChange(playerIndex, stockIndex, Stock[0]);
     }
 
     /// <summary>
