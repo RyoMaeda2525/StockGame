@@ -79,7 +79,23 @@ public class PlayerUIManager : MonoBehaviour
             {
                 _playerNickName[i].text = _playerArray[i].NickName;
                 Debug.Log(_playerArray[i].NickName);
+                PlayerNumberGet();
             }
         }
+    }
+
+    /// <summary>自分のプレイヤーリストでのIndexを取得/// </summary>
+    public int PlayerNumberGet()
+    {
+        for (int i = 0; i < _playerArray.Length; i++)
+        {
+            if (_playerArray[i].NickName == PhotonNetwork.LocalPlayer.NickName)
+            {
+                Debug.Log("localPlayerNumber: " + i);
+                return i;
+            }
+        }
+        Debug.Log("localPlayerNumber: null");
+        return -1;
     }
 }
