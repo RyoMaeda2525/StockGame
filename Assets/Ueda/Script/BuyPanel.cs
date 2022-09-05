@@ -11,6 +11,8 @@ public class BuyPanel : MonoBehaviour
     [SerializeField] Text _priceText = null;
     int _playerIndex =0;
     int _stockPrice = 0;
+    int _totalPrice = 0;
+    int _money = 0;
     [SerializeField] GameObject _system = null;
     BoardManager _board = null;
     GameManager _gm =null;
@@ -25,15 +27,19 @@ public class BuyPanel : MonoBehaviour
     {
         _quantityText.text = _quantity[0].ToString() +"個";//個数表示
         _stockPrice = _board.StockPrice(_playerIndex);//株価取得
-        _stockPrice *= _quantity[0];
+        _totalPrice = _stockPrice * _quantity[0];
         _checkText.text = $"{_playerIndex + 1}Pの株を{_quantity[0]}個 購入 ";//購入対象と個数の確認
-        _priceText.text = _stockPrice.ToString(); //価格表示
+        _priceText.text = _totalPrice.ToString(); //価格表示
     }
 
     public void BuyButton()
     {
-        Debug.Log($"{_playerIndex+1}Pの株を{_quantity[0]}個 購入 ");
-        _gm.StockBuy(_playerIndex,_stockPrice,_quantity);//ゲームマネージャーの株を買う関数に「対象プレイヤー」「対象の株価」「購入する数」を送る
+        Debug.Log($"{_playerIndex+1}Pの株を{_quantity[0]}個 購入 合計 {_stockPrice} 円");
+        if(_money >= _totalPrice)
+        {
+            _gm.StockBuy(_playerIndex, _stockPrice, _quantity);//ゲームマネージャーの株を買う関数に「対象プレイヤー」「対象の株価」「購入する数」を送る
+        }
+        
     }
 
 
