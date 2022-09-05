@@ -75,8 +75,11 @@ public class PlayerUIManager : MonoBehaviour
 
         for (int i = 0; i < _playerArray.Length; i++)
         {
-            _playerNickName[i].text = _playerArray[i].NickName;
-            Debug.Log(_playerArray[i].NickName);
+            if (_playerNickName[i] != null) 
+            {
+                _playerNickName[i].text = _playerArray[i].NickName;
+                Debug.Log(_playerArray[i].NickName);
+            }
         }
     }
 }
