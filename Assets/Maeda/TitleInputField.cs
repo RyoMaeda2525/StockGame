@@ -34,7 +34,7 @@ public class TitleInputField : MonoBehaviour
         if (_nickName.text != "")
         {
             SceneManager.LoadScene(a);
-            _ngmt.JoinExistingRoom();
+            _ngmt.JoinExistingRoom(_nickName.text);
         }
         else Debug.Log("ニックネームを入力してください。");
     }
