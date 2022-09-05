@@ -26,9 +26,7 @@ public struct Data
         Command = command;
         TargetPlayer = targetPlayer;
         TargetStock = targetStock;
-        Value = new int[2];
-        Value[0] = value[0];
-        Value[1] = value[1];
+        Value = value;
     }
 }
 
