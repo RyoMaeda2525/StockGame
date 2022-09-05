@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerPanelManagar : MonoBehaviour
 {
+    [SerializeField, Tooltip("Š”‰¿‚ğæ“¾‚·‚é‚Ì‚Ég‚¤")]
+    BoardManager _boardManager;
+
     [SerializeField, Tooltip("‰æ–Êã‚É•\¦‚·‚é‘‹à‚ÌText")]
     Text _fundText = default;
 
@@ -17,7 +20,13 @@ public class PlayerPanelManagar : MonoBehaviour
     /// <param name="fund"></param>
     /// <param name="stockType"></param>
     /// <param name="stockIndex"></param>
-    public void FundAndStockChange(int stockType , int stockIndex , int fund) 
+    public void FundAndStockChange(int stockType , int stockIndex) 
+    {
+        _fundText.text = (int.Parse(_fundText.text) - _boardManager.StockPrice(stockType) * stockIndex).ToString();
+        _stockTypes[stockType].text = (int.Parse(_stockTypes[stockType].text) + stockIndex).ToString();
+    }
+
+    public void FundAndStockSet(int stockType, int stockIndex , int fund)
     {
         _fundText.text = fund.ToString();
         _stockTypes[stockType].text = stockIndex.ToString();

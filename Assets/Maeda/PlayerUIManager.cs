@@ -60,11 +60,33 @@ public class PlayerUIManager : MonoBehaviour
     //    } 
     //}
 
-    public void PlayerInfoChange(int targetIndex, int stockType, int stockValue, int fund)
+    /// <summary>株を買ったり売った際に
+    /// プレイヤーの持つ株や資金を表示する関数
+    /// </summary>
+    /// <param name="targetIndex">変更するプレイヤーのIndex</param>
+    /// <param name="stockType">変更する株のIndex</param>
+    /// <param name="stockValue">変更する株の値</param>
+    public void PlayerInfoChange(int targetIndex, int stockType, int stockValue)
     {
         if (_playerTags[targetIndex].gameObject.activeSelf)
         {
-            _playerTags[targetIndex].FundAndStockChange(stockType, stockValue, fund);
+            _playerTags[targetIndex].FundAndStockChange(stockType, stockValue);
+        }
+    }
+
+    /// <summary>
+    /// 株を買ったり売った際に
+    /// プレイヤーの持つ株や資金を上書きする関数
+    /// </summary>
+    /// <param name="targetIndex">変更するプレイヤーのIndex</param>
+    /// <param name="stockType">変更する株のIndex</param>
+    /// <param name="stockValue">変更する株の値</param>
+    /// <param name="fund">プレイヤーの資金額</param>
+    public void PlayerInfoSets(int targetIndex, int stockType, int stockValue , int fund)
+    {
+        if (_playerTags[targetIndex].gameObject.activeSelf)
+        {
+            _playerTags[targetIndex].FundAndStockSet(stockType, stockValue , fund);
         }
     }
 
