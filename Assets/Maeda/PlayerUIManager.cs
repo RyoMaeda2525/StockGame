@@ -61,6 +61,17 @@ public class PlayerUIManager : MonoBehaviour
     //}
 
     /// <summary>
+    /// 特定のプレイヤーが持つ資金額を取得する関数
+    /// </summary>
+    /// <param name="playerIndex">取得したいプレイヤーのIndex</param>
+    /// <returns></returns>
+    public int PlayerFundCheck(int playerIndex) 
+    {
+        string st = _playerTags[playerIndex]._fundText.text;
+        return int.Parse(st);
+    }
+
+    /// <summary>
     /// 株を買った際に
     /// プレイヤーの持つ株や資金を表示する関数
     /// </summary>
