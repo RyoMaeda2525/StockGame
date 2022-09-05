@@ -796,6 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed384d522b776344b861892f5d48b4d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boardManager: {fileID: 1666238313}
   _fundText: {fileID: 1674390340}
   _stockTypes:
   - {fileID: 595294181}
@@ -3047,6 +3048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed384d522b776344b861892f5d48b4d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boardManager: {fileID: 1666238313}
   _fundText: {fileID: 1694743383}
   _stockTypes:
   - {fileID: 888086028}
@@ -4233,11 +4235,15 @@ MonoBehaviour:
   _inputField: {fileID: 0}
   _forSendingText: {fileID: 0}
   _playerNickName:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _playerTags: []
+  - {fileID: 1545474466}
+  - {fileID: 131593051}
+  - {fileID: 1365921969}
+  - {fileID: 1682220687}
+  _playerTags:
+  - {fileID: 1835227736}
+  - {fileID: 1258595051}
+  - {fileID: 1690395911}
+  - {fileID: 486015373}
 --- !u!1 &1674390338
 GameObject:
   m_ObjectHideFlags: 0
@@ -4653,6 +4659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed384d522b776344b861892f5d48b4d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boardManager: {fileID: 1666238313}
   _fundText: {fileID: 921285736}
   _stockTypes:
   - {fileID: 680767922}
@@ -5074,6 +5081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed384d522b776344b861892f5d48b4d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boardManager: {fileID: 1666238313}
   _fundText: {fileID: 1821779345}
   _stockTypes:
   - {fileID: 1265583213}
