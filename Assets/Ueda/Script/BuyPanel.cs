@@ -25,7 +25,7 @@ public class BuyPanel : MonoBehaviour
     {
         _quantityText.text = _quantity[0].ToString() +"個";//個数表示
         _stockPrice = _board.StockPrice(_playerIndex);//株価取得
-
+        _stockPrice *= _quantity[0];
         _checkText.text = $"{_playerIndex + 1}Pの株を{_quantity[0]}個 購入 ";//購入対象と個数の確認
         _priceText.text = _stockPrice.ToString(); //価格表示
     }
