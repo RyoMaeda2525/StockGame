@@ -124,27 +124,31 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 戦って株が減る
     /// </summary>
     /// <param name="targetIndex">対戦相手</param>
-    /// <param name="winlose">勝ったか負けたか(1の時に自分の勝ち)</param>
+    /// <param name="playerIndex">戦いを吹っ掛けた相手</param>
     /// <param name="dise">それぞれのダイスの数</param>
-    void BattleStock(int targetIndex, int winlose, int[] dise)
+    void BattleStock(int targetIndex, int playerIndex, int[] dise)
     {
-        if(winlose == 1)//自分が勝った時
+
+        if (dise[0] + dise[1] > dise[2] + dise[3])
         {
-            print($"player{_playerIndex}は、player{targetIndex}と戦い、" +
-                $"player{_playerIndex}は{dise[0]}と{dise[1]}、" +
+            _stockPrice[targetIndex] -= 2;
+            print($"player{playerIndex}は、player{targetIndex}と戦い、" +
+                $"player{playerIndex}は{dise[0]}と{dise[1]}、" +
                 $"player{targetIndex}は{dise[2]}と{dise[3]}を出し、" +
                 $"結果、player{targetIndex}の株価が減りました。");
-            _boardManager.ChangeStockPrice(targetIndex,_stockPrice[targetIndex]);
+            _boardManager.ChangeStockPrice(targetIndex, _stockPrice[targetIndex]);
+            //自分が勝った時のプログラム
         }
-        else//相手が勝った時
+        else if(dise[0] + dise[1] < dise[2] + dise[3])
         {
-            print($"player{_playerIndex}は、player{targetIndex}と戦い、" +
-                $"player{_playerIndex}は{dise[0]}と{dise[1]}、" +
+            _stockPrice[playerIndex]--;
+            print($"player{playerIndex}は、player{targetIndex}と戦い、" +
+                $"player{playerIndex}は{dise[0]}と{dise[1]}、" +
                 $"player{targetIndex}は{dise[2]}と{dise[3]}を出し、" +
-                $"結果、player{_playerIndex}の株価が減りました。");
-            _boardManager.ChangeStockPrice(_playerIndex, _stockPrice[_playerIndex]);
+                $"結果、player{playerIndex}の株価が減りました。");
+            _boardManager.ChangeStockPrice(playerIndex, _stockPrice[playerIndex]);
+            //相手が勝った時のプログラム
         }
-        
     }
     /// <summary>
     /// 持ち株を指定した分売る
@@ -183,10 +187,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     }
 
 
-    ///<summary>
+    /// <summary>
     /// 戦う
     /// </summary>
-    ///
+    /// <param name="targetIndex">戦う相手</param>
     public void Battle(int targetIndex)
     {
         int[] dise = new int[4];
@@ -194,19 +198,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         {
             dise[i] = UnityEngine.Random.Range(1,6);
         }
-        if(dise[0] + dise[1] > dise[2] + dise[3])
-        {
-            _stockPrice[targetIndex] -= 2;
-            MoveStockPrice2(targetIndex, dise, 1, true);
-            //自分が勝った時のプログラム
-        }
-        else
-        {
-            _stockPrice[_playerIndex]--;
-            MoveStockPrice2(targetIndex, dise, 0, true);
-            //相手が勝った時のプログラム
-        }
-
+        MoveStockPrice2(targetIndex, dise, _playerIndex, true);
     }
 
 
@@ -255,9 +247,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 自分、または相手の株価で PunTurnManager に Move　を送る
     /// </summary>
     /// <param name="finished">true の時は自分の番を終わる</param>
-    void MoveStockPrice2(int targetIndex, int[] dise, int winlose, bool finished = true)
+    void MoveStockPrice2(int targetIndex, int[] dise, int playerIndex, bool finished = true)
     {
-        Data data = new Data(Command.Raise, targetIndex, winlose, dise);
+        Data data = new Data(Command.Battle, targetIndex, playerIndex, dise);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);
