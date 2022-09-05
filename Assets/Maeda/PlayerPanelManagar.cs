@@ -9,7 +9,7 @@ public class PlayerPanelManagar : MonoBehaviour
     BoardManager _boardManager;
 
     [SerializeField, Tooltip("‰æ–Êã‚É•\¦‚·‚é‘‹à‚ÌText")]
-    Text _fundText = default;
+    public Text _fundText = default;
 
     [SerializeField, Tooltip("‰æ–Êã‚Éo‚é4í‚ÌŠ”‰¿‚ÌText")]
     Text[] _stockTypes;
