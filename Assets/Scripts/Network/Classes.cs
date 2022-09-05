@@ -42,4 +42,6 @@ public enum Command
     Buy,
     /// <summary>株を売る</summary>
     Sell,
+    ///<summary>戦う</summary>
+    Battle,
 }
