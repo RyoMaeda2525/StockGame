@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class BuyPanel : MonoBehaviour
 {
@@ -9,6 +9,7 @@ public class BuyPanel : MonoBehaviour
     [SerializeField] Text _quantityText = null;
     [SerializeField] Text _checkText = null;
     [SerializeField] Text _priceText = null;
+    int _myPlayerIndex =0;
     int _playerIndex =0;
     int _stockPrice = 0;
     int _totalPrice = 0;
@@ -21,6 +22,7 @@ public class BuyPanel : MonoBehaviour
     {
         _board = _system.GetComponent<BoardManager>();
         _gm = _system.GetComponent<GameManager>();
+        _myPlayerIndex = Array.IndexOf(PhotonNetwork.PlayerList, PhotonNetwork.LocalPlayer);
     }
     // Update is called once per frame
     void Update()
@@ -35,9 +37,14 @@ public class BuyPanel : MonoBehaviour
     public void BuyButton()
     {
         Debug.Log($"{_playerIndex+1}Pの株を{_quantity[0]}個 購入 合計 {_stockPrice} 円");
-        if(_money >= _totalPrice)
+        _money = PlayerUIManager.instance.PlayerFundCheck(_myPlayerIndex);
+        if (_money >= _totalPrice)
         {
             _gm.StockBuy(_playerIndex, _stockPrice, _quantity);//ゲームマネージャーの株を買う関数に「対象プレイヤー」「対象の株価」「購入する数」を送る
+        }
+        else
+        {
+            Debug.Log("購入不可");
         }
         
     }
