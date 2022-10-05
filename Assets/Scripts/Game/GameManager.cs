@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 // Photon 用の名前空間を参照する
@@ -130,7 +131,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void BattleStock(int targetIndex, int playerIndex, int[] dise)
     {//戸澤 担当予定
         //ターン終了時まで非同期処理で待つ アシンクアウェイト
-        ////アニメーションイベントトリガー（爪（タスクact1））
+        ////
+        StartCoroutine(WaitForEndOfTurns());//コルーチン開始 このタイミングでええんか？
+        
         if (dise[0] + dise[1] > dise[2] + dise[3])
         {
             _stockPrice[targetIndex] -= 2;
@@ -333,4 +336,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         Debug.Log($"Enter OnTurnTimeEnds. turn: {turn}");
     }
     #endregion
+    private IEnumerator WaitForEndOfTurns()
+    {
+        //アニメーションイベントが完了してBoolが変わるまでは先に進まない
+        yield return new WaitUntil(() => Triger.canProceed);
+        //ここにターン完了演出後にしてほしいことを書く
+    }
 }
