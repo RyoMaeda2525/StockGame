@@ -44,22 +44,6 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
-    //int _stockIndex = -1;
-
-    //void StockSelect(int value)
-    //{
-    //    _stockIndex = value;
-    //}
-
-    //void BuyOrSell() 
-    //{
-    //    int x = int.Parse(_inputField.text);
-    //    if (x != 0) 
-    //    {
-    //        _forSendingText.text =  _stockIndex.ToString() + " " + x.ToString();
-    //    } 
-    //}
-
     /// <summary>
     /// “Á’è‚ÌƒvƒŒƒCƒ„[‚ª‚Â‘‹àŠz‚ğæ“¾‚·‚éŠÖ”
     /// </summary>
