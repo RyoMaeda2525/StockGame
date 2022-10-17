@@ -80,11 +80,11 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
                 break;
 
             case Command.Buy:
-                BuyStock(data.TargetPlayer,data.TargetPlayer,data.Value);
+                BuyStock(data.TargetPlayer,data.TargetStock,data.Value);
                 break;
 
             case Command.Sell:
-                SellStock(data.TargetPlayer, data.TargetPlayer, data.Value);
+                SellStock(data.TargetPlayer, data.TargetStock, data.Value);
                 break;
 
 
