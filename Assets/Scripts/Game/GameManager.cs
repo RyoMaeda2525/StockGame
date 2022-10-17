@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 // Photon 用の名前空間を参照する
@@ -80,15 +81,15 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
                 break;
 
             case Command.Buy:
-                BuyStock(data.TargetPlayer,data.TargetPlayer,data.Value);
+                BuyStock(data.TargetPlayer,data.TargetStock,data.Value);
                 break;
 
             case Command.Sell:
-                SellStock(data.TargetPlayer, data.TargetPlayer, data.Value);
+                SellStock(data.TargetPlayer, data.TargetStock, data.Value);
                 break;
 
 
-            case Command.Battle:
+            case Command.Battle://戸澤担当予定
                 BattleStock(data.TargetPlayer, data.TargetPlayer, data.Value);
                 break;
 
@@ -128,8 +129,11 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="playerIndex">戦いを吹っ掛けた相手</param>
     /// <param name="dise">それぞれのダイスの数</param>
     void BattleStock(int targetIndex, int playerIndex, int[] dise)
-    {
-
+    {//戸澤 担当予定
+        //ターン終了時まで非同期処理で待つ アシンクアウェイト
+        ////
+        StartCoroutine(WaitForEndOfTurns());//コルーチン開始 このタイミングでええんか？
+        
         if (dise[0] + dise[1] > dise[2] + dise[3])
         {
             _stockPrice[targetIndex] -= 2;
@@ -163,6 +167,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         PlayerUIManager.instance.SellStockChange(playerIndex, stockIndex, Stock[0]);
     }
 
+    //ー－－－－－－－－－－－－－－－－－－－－－－－－－－
+    //ここから先はボタンから呼ばれる処理
+    
     /// <summary>
     /// 株価を 1 上げる
     /// ボタンから呼ばれる。PunTurnManager に Move (Finish) を送る。
@@ -238,7 +245,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="finished">true の時は自分の番を終わる</param>
     void MoveStockPrice(bool finished = true)
     {
-        Data data = new Data(Command.Raise , _playerIndex , 0  , _stockPrice);
+        Data data = new Data(Command.Raise , _playerIndex , _playerIndex  , _stockPrice);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);
@@ -329,4 +336,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         Debug.Log($"Enter OnTurnTimeEnds. turn: {turn}");
     }
     #endregion
+    private IEnumerator WaitForEndOfTurns()
+    {
+        //アニメーションイベントが完了してBoolが変わるまでは先に進まない
+        yield return new WaitUntil(() => Triger.canProceed);
+        //ここにターン完了演出後にしてほしいことを書く
+    }
 }
