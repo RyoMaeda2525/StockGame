@@ -8,13 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GameScene.unity
     guid: 2562e392f2746ac44b806a0e62ecff98
-  - enabled: 1
+  - enabled: 0
     path: Assets/Maeda/Scene/TestScene.unity
     guid: 766dd9d5542bc0c4292d3f5b496fd35f
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Maeda/Scene/TitleScene.unity
+    guid: 83305b42e99d98748912a8637056512e
+  - enabled: 1
     path: Assets/Scenes/TestScene 1.unity
     guid: 90a105308dcee854aaac41362016a478
   m_configObjects: {}
