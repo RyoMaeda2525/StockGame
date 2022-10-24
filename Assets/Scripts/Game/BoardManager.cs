@@ -43,7 +43,7 @@ public class BoardManager : MonoBehaviour
     public void ChangeStockPrice(int targetPlayer, int price)
     {
         // 「いくらに移動するか」のターゲットとなるオブジェクト（アンカー）を探し、駒をその子オブジェクトにすることで移動させる
-        var targetAnchor = Array.Find<RectTransform>(_priceTable, x => x.name == $"Price {targetPlayer} {price}");
+        var targetAnchor = Array.Find(_priceTable, x => x.name == $"Price {targetPlayer} {price}");
         _marker[targetPlayer].transform.position = targetAnchor.transform.position; //子オブジェクトでは無く位置に移動させている
     }
 

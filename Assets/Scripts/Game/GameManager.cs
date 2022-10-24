@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="targetPrice">この値に株価を変更する</param>
     void ChangeStockPrice(int playerIndex, int[] targetPrice)
     {
-        print($"Raise player {playerIndex}'s stock to {targetPrice}");
+        print($"Raise player {playerIndex}'s stock to {targetPrice[0]}");
         _boardManager.ChangeStockPrice(playerIndex, targetPrice[0]);
     }
 
@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     public void RaiseStock(bool finished = true)
     {
-            _stockPrice[_playerIndex]+= 1;
+            _stockPrice[0]+= 1;
             MoveStockPrice(true);
     }
 
