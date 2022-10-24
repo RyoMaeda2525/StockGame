@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         print($"player{playerIndex+1}は、player{stockIndex+1}の株を{stock[0]}個買った。");
         PlayerUIManager.instance.BuyStockChange(playerIndex,stockIndex,stock[0]);
     }
+
     /// <summary>
     /// 戦って株が減る
     /// </summary>
@@ -134,7 +135,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void BattleStock(int targetIndex, int playerIndex, int[] dise)
     {//戸澤 担当予定
         //ターン終了時まで非同期処理で待つ アシンクアウェイト
-        ////
+        //ボタンで呼んだり、相手を選ぶ機能を作る
         StartCoroutine(WaitForEndOfTurns());//コルーチン開始 このタイミングでええんか？
         
         if (dise[0] + dise[1] > dise[2] + dise[3])
@@ -204,7 +205,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     /// <param name="targetIndex">戦う相手</param>
     public void Battle(int targetIndex)
-    {
+    {//戸澤 担当予定
         int[] dise = new int[4];
         for(int i = 0; i > dise.Length; i++)
         {
