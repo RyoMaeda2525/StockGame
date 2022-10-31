@@ -40,7 +40,9 @@ public class BuyPanel : MonoBehaviour
         _money = PlayerUIManager.instance.PlayerFundCheck(_myPlayerIndex);
         if (_money >= _totalPrice)
         {
-            _gm.StockBuy(_playerIndex, _stockPrice, _quantity);//ゲームマネージャーの株を買う関数に「対象プレイヤー」「対象の株価」「購入する数」を送る
+            _gm.StockBuy(_playerIndex, _stockPrice, _quantity);
+            //ゲームマネージャーの株を買う関数に「対象プレイヤー」「対象の株価」「購入する数」を送る
+            this.gameObject.SetActive(false);
         }
         else
         {
