@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 7129282492562680064}
   - component: {fileID: 7129282492562680071}
   m_Layer: 5
-  m_Name: BuyAndCancel (1)
+  m_Name: SellAndCancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,7 +637,7 @@ GameObject:
   - component: {fileID: 7129282493131666214}
   - component: {fileID: 7129282493131666213}
   m_Layer: 5
-  m_Name: BuyButton
+  m_Name: SellButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -750,6 +750,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SellPanel, Assembly-CSharp
         m_MethodName: SellButton
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7129282492526567751}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1352,7 +1364,7 @@ GameObject:
   - component: {fileID: 7129282493533434004}
   - component: {fileID: 7129282493533434011}
   m_Layer: 5
-  m_Name: Player Button (1)
+  m_Name: Player Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1886,7 +1898,7 @@ GameObject:
   - component: {fileID: 7129282493932316986}
   - component: {fileID: 7129282493932316985}
   m_Layer: 5
-  m_Name: Quantity (1)
+  m_Name: Quantity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2764,7 +2776,7 @@ GameObject:
   - component: {fileID: 7129282494423102940}
   - component: {fileID: 7129282494423102883}
   m_Layer: 5
-  m_Name: Check (1)
+  m_Name: Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2921,7 +2933,7 @@ GameObject:
   - component: {fileID: 7129282494523977572}
   - component: {fileID: 7129282494523977579}
   m_Layer: 5
-  m_Name: Price (1)
+  m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
