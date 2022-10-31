@@ -37,10 +37,10 @@ public class SellPanel : MonoBehaviour
 
     public void SellButton()
     {
-        Debug.Log($"{_playerIndex + 1}Pの株を{_quantity[0]}個 売却 合計 {_stockPrice} 円");
+        Debug.Log($"{_playerIndex + 1}Pの株を{_quantity[0]}個 売却 合計 {_totalPrice} 円");
         _money = PlayerUIManager.instance.PlayerFundCheck(_myPlayerIndex);
 
-        if (_gm.OtherPrice[_playerIndex] > _quantity[0])
+        if (_gm.OtherPrice[_playerIndex] >= _quantity[0])
         {
             _gm.StockSell(_playerIndex, _stockPrice, _quantity);
             //ゲームマネージャーの株を売る関数に「対象プレイヤー」「対象の株価」「売却する数」を送る
