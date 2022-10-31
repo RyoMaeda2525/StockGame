@@ -44,6 +44,7 @@ public class SellPanel : MonoBehaviour
         {
             _gm.StockSell(_playerIndex, _stockPrice, _quantity);
             //ゲームマネージャーの株を売る関数に「対象プレイヤー」「対象の株価」「売却する数」を送る
+            this.gameObject.SetActive(false);
         }
         else
         {
