@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using System;
+using Photon.Realtime;
 
 public class PlayerUIManager : MonoBehaviour
 {
@@ -101,7 +102,7 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
-    /// <summary>“üº,‘Şo‚É–¼‘O‚ğ“ü‚ê‚éŠÖ”/// </summary>
+    /// <summary>“üº‚É–¼‘O‚ğ“ü‚ê‚éŠÖ”/// </summary>
     public void NameSet()
     {
         _playerArray = PhotonNetwork.PlayerList;
@@ -113,5 +114,19 @@ public class PlayerUIManager : MonoBehaviour
                 _playerNickName[i].text = _playerArray[i].NickName;
             }
         }
+    }
+
+    public void PlayerOut(Player outPlayer) 
+    {
+        for (int i = 0; i < _playerArray.Length; i++)
+        {
+            if (_playerNickName[i].text == outPlayer.NickName)
+            {
+                _playerNickName[i].text = outPlayer.NickName + "(NPC)";
+                break;
+            }
+        }
+
+        _playerArray = PhotonNetwork.PlayerList;
     }
 }

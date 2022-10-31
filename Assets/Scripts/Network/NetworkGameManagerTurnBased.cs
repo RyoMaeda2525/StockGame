@@ -207,7 +207,6 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     }
 
     /// <summary>部屋に入室した時</summary>
-    /// <summary>部屋に入室した時</summary>
     public override void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom");
@@ -250,7 +249,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     /// <summary>自分のいる部屋から他のプレイヤーが退室した時</summary>
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        PlayerUIManager.instance.NameSet();
+        PlayerUIManager.instance.PlayerOut(otherPlayer);
         Debug.Log("OnPlayerLeftRoom: " + otherPlayer.NickName);
     }
 
