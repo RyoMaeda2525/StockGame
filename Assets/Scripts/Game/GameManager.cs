@@ -200,8 +200,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <summary>
     /// 戦う
     /// </summary>
-    /// <param name="targetIndex">戦う相手</param>
-    /// <param name="dice">戦う相手</param>
+    /// <param name="targetIndex">戦う相手のプレイヤー番号</param>
+    /// <param name="dice">勝敗判定に使うダイスの値１～６</param>
+    /// <param name="_playerIndex">勝負を仕掛ける側（自分）のプレイヤー番号</param>
+    /// <param name="true">次のターンに移行できるか否か</param>
     public void Battle(int targetIndex)
     {//戸澤 担当予定
 
