@@ -26,10 +26,12 @@ public class PlayerPanelManagar : MonoBehaviour
         _stockTypes[stockType].text = (int.Parse(_stockTypes[stockType].text) + stockIndex).ToString();
     }
 
-    public void SellStockChange(int stockType, int stockIndex)
+    public bool SellStockChange(int stockType, int stockIndex)
     {
         _fundText.text = (int.Parse(_fundText.text) + _boardManager.StockPrice(stockType) * stockIndex).ToString();
         _stockTypes[stockType].text = (int.Parse(_stockTypes[stockType].text) - stockIndex).ToString();
+        if (int.Parse(_fundText.text) >= 50000) { return true; }
+        return false;
     }
 
     public void FundAndStockSet(int stockType, int stockIndex , int fund)
