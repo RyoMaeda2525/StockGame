@@ -130,11 +130,15 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="playerIndex">戦いを吹っ掛けた相手</param>
     /// <param name="dice">それぞれのダイスの数</param>
     void BattleStock(int targetIndex, int playerIndex, int[] dice)
-    {//戸澤 担当予定
+    {//勝敗を判定する関数 コマンドから呼ばれる
         //ターン終了時まで非同期処理で待つ アシンクアウェイト
         //ボタンで呼んだり、相手を選ぶ機能を作る
+        //SendMoveのfinishedをfalseで呼べばターンを終了せずにjsonを送れる
+        //アニメーションが終了したらPhotonNetwork.LocalPlayer.SetFinishedTurnを呼んでターンを終了できる
         StartCoroutine(WaitForEndOfTurns());//コルーチン開始 このタイミングでええんか？
         
+
+
         if (dice[0] + dice[1] > dice[2] + dice[3])
         {
             _stockPrice[targetIndex] -= 2;
@@ -204,7 +208,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="dice">勝敗判定に使うダイスの値１～６</param>
     /// <param name="_playerIndex">勝負を仕掛ける側（自分）のプレイヤー番号</param>
     /// <param name="true">次のターンに移行できるか否か</param>
-    public void Battle(int targetIndex)
+    public void Battle(int targetIndex)//ボタンで呼ばれる
     {//戸澤 担当予定
 
         int[] dice = new int[4];
@@ -263,10 +267,11 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="finished">true の時は自分の番を終わる</param>
     void BattleResultReflected(int targetIndex, int[] dice, int playerIndex, bool finished = true)
     {
-        Data data = new Data(Command.Battle, targetIndex, playerIndex, dice);
+        
+                Data data = new Data(Command.Battle, targetIndex, playerIndex, dice);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
-        _turnManager.SendMove(json, finished);
+        _turnManager.SendMove(json, finished);//これは待ち始める前に送ってないといけないのでfalseで送る。
         _controlPanel.SetActive(!finished);
     }
     /// <summary>
