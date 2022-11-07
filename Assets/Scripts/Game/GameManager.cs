@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         int[] dice = new int[4];
         for(int i = 0; i > dice.Length; i++)
         {
-            dice[i] = UnityEngine.Random.Range(1,6);
+            dice[i] = UnityEngine.Random.Range(1,7);
         }
         BattleResultReflected(targetIndex, dice, _playerIndex, false);
 
