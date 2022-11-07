@@ -31,7 +31,7 @@ public class SellPanel : MonoBehaviour
         _quantityText.text = _quantity[0].ToString() + "個";//個数表示
         _stockPrice = _board.StockPrice(_playerIndex);//株価取得
         _totalPrice = _stockPrice * _quantity[0];
-        _checkText.text = $"{_playerIndex + 1}Pの株を{_quantity[0]}個 売却 ";//購入対象と個数の確認
+        _checkText.text = PhotonNetwork.PlayerList[_playerIndex].NickName + $"の株を{_quantity[0]}個 売却 ";//購入対象と個数の確認
         _priceText.text = _totalPrice.ToString(); //価格表示
     }
 
