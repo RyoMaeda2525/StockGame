@@ -12,12 +12,6 @@ public class PlayerUIManager : MonoBehaviour
 
     [SerializeField] GameManager _gameManager;
 
-    [SerializeField, Tooltip("入力された値を格納する")]
-    InputField _inputField;
-
-    [SerializeField, Tooltip("ゲーム画面には表示されずstringを渡すのに使うText")]
-    Text _forSendingText = default;
-
     [SerializeField, Tooltip("プレイヤーのニックネームを入れる配列")]
     Text[] _playerNickName;
 
@@ -83,7 +77,8 @@ public class PlayerUIManager : MonoBehaviour
     {
         if (_playerTags[targetIndex].gameObject.activeSelf)
         {
-            _playerTags[targetIndex].SellStockChange(stockType, stockValue);
+            bool winBool = _playerTags[targetIndex].SellStockChange(stockType, stockValue);
+            if (winBool) { _gameManager.GameSet(targetIndex); }
         }
     }
 

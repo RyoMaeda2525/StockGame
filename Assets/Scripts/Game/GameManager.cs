@@ -38,7 +38,12 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
         _controlPanel.SetActive(false);
     }
-    
+
+    private void Update()
+    {
+        if (_controlPanel.activeSelf && Time.timeScale == 0) { _controlPanel.SetActive(false); }
+    }
+
     /// <summary>
     /// ゲームを初期化する
     /// </summary>
@@ -299,6 +304,13 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _turnManager.SendMove(json, finished);
         _controlPanel.SetActive(!finished);
     }
+
+    public void GameSet(int winPlayer)
+    {
+        Debug.Log(PhotonNetwork.PlayerList[winPlayer].NickName + "が勝利した！");
+        Time.timeScale = 0;
+    }
+
     #region IPunTurnManagerCallbacks の実装
     void IPunTurnManagerCallbacks.OnTurnBegins(int turn)
     {
