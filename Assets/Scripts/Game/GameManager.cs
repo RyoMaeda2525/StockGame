@@ -131,29 +131,30 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     /// <param name="targetIndex">対戦相手</param>
     /// <param name="playerIndex">戦いを吹っ掛けた相手</param>
-    /// <param name="dise">それぞれのダイスの数</param>
-    void BattleStock(int targetIndex, int playerIndex, int[] dise)
-    {//戸澤 担当予定
-        //ターン終了時まで非同期処理で待つ アシンクアウェイト
+    /// <param name="dice">それぞれのダイスの数</param>
+    void BattleStock(int targetIndex, int playerIndex, int[] dice)
+    {//勝敗を判定する関数 コマンドから呼ばれる
+        //ターン終了時まで非同期処理で待つ 
         //ボタンで呼んだり、相手を選ぶ機能を作る
-        StartCoroutine(WaitForEndOfTurns());//コルーチン開始 このタイミングでええんか？
+        //SendMoveのfinishedをfalseで呼べばターンを終了せずにjsonを送れる
+        //アニメーションが終了したらPhotonNetwork.LocalPlayer.SetFinishedTurnを呼んでターンを終了できる
         
-        if (dise[0] + dise[1] > dise[2] + dise[3])
+        if (dice[0] + dice[1] > dice[2] + dice[3])
         {
             _stockPrice[targetIndex] -= 2;
             print($"player{playerIndex}は、player{targetIndex}と戦い、" +
-                $"player{playerIndex}は{dise[0]}と{dise[1]}、" +
-                $"player{targetIndex}は{dise[2]}と{dise[3]}を出し、" +
+                $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
+                $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
                 $"結果、player{targetIndex}の株価が減りました。");
             _boardManager.ChangeStockPrice(targetIndex, _stockPrice[targetIndex]);
             //自分が勝った時のプログラム
         }
-        else if(dise[0] + dise[1] < dise[2] + dise[3])
+        else if(dice[0] + dice[1] < dice[2] + dice[3])
         {
             _stockPrice[playerIndex]--;
             print($"player{playerIndex}は、player{targetIndex}と戦い、" +
-                $"player{playerIndex}は{dise[0]}と{dise[1]}、" +
-                $"player{targetIndex}は{dise[2]}と{dise[3]}を出し、" +
+                $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
+                $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
                 $"結果、player{playerIndex}の株価が減りました。");
             _boardManager.ChangeStockPrice(playerIndex, _stockPrice[playerIndex]);
             //相手が勝った時のプログラム
@@ -203,15 +204,20 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <summary>
     /// 戦う
     /// </summary>
-    /// <param name="targetIndex">戦う相手</param>
-    public void Battle(int targetIndex)
-    {//戸澤 担当予定
-        int[] dise = new int[4];
-        for(int i = 0; i > dise.Length; i++)
+    /// <param name="targetIndex">戦う相手のプレイヤー番号</param>
+    /// <param name="dice">勝敗判定に使うダイスの値１～６</param>
+    /// <param name="_playerIndex">勝負を仕掛ける側（自分）のプレイヤー番号</param>
+    /// <param name="true">次のターンに移行できるか否か</param>
+    public void Battle(int targetIndex)//ボタンで呼ばれる
+    {//戸澤 担当予定 ダイスの値で勝負してるのが見た目で分かるアニメーションを作る
+        StartCoroutine(WaitForEndOfTurns());//コルーチン開始 
+        int[] dice = new int[4];
+        for(int i = 0; i > dice.Length; i++)
         {
-            dise[i] = UnityEngine.Random.Range(1,6);
+            dice[i] = UnityEngine.Random.Range(1,6);
         }
-        MoveStockPrice2(targetIndex, dise, _playerIndex, true);
+        BattleResultReflected(targetIndex, dice, _playerIndex, false);
+
     }
 
 
@@ -260,12 +266,12 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// 自分、または相手の株価で PunTurnManager に Move　を送る
     /// </summary>
     /// <param name="finished">true の時は自分の番を終わる</param>
-    void MoveStockPrice2(int targetIndex, int[] dise, int playerIndex, bool finished = true)
+    void BattleResultReflected(int targetIndex, int[] dice, int playerIndex, bool finished)
     {
-        Data data = new Data(Command.Battle, targetIndex, playerIndex, dise);
+        Data data = new Data(Command.Battle, targetIndex, playerIndex, dice);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
-        _turnManager.SendMove(json, finished);
+        _turnManager.SendMove(json, finished);//これは待ち始める前に送ってないといけないのでfalseで送る。
         _controlPanel.SetActive(!finished);
     }
     /// <summary>
@@ -345,5 +351,6 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         //アニメーションイベントが完了してBoolが変わるまでは先に進まない
         yield return new WaitUntil(() => Triger.canProceed);
         //ここにターン完了演出後にしてほしいことを書く
+        _turnManager.SendMove(null, true);
     }
 }
