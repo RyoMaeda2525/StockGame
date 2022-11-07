@@ -272,7 +272,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);//これは待ち始める前に送ってないといけないのでfalseで送る。
-        _controlPanel.SetActive(!finished);
+        _controlPanel.SetActive(false);
     }
     /// <summary>
     /// 現在の自分の株数で PunTurnManager に Move を送る
