@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 235961206}
   - component: {fileID: 235961205}
   - component: {fileID: 235961207}
+  - component: {fileID: 235961208}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -263,6 +264,19 @@ MonoBehaviour:
   _roomId: {fileID: 803864336}
   _nickName: {fileID: 555901153}
   _ngmt: {fileID: 235961205}
+  sc: {fileID: 235961208}
+--- !u!114 &235961208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235961204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce8679444b513540972627a8817b8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &555901152
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +432,7 @@ MonoBehaviour:
   _roomId: {fileID: 555901153}
   _nickName: {fileID: 0}
   _ngmt: {fileID: 235961205}
+  sc: {fileID: 0}
 --- !u!222 &555901157
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -593,7 +608,7 @@ MonoBehaviour:
       - m_Target: {fileID: 235961207}
         m_TargetAssemblyTypeName: TitleInputField, Assembly-CSharp
         m_MethodName: RandomJoinOrCreate
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1030,7 +1045,6 @@ GameObject:
   - component: {fileID: 1311002852}
   - component: {fileID: 1311002851}
   - component: {fileID: 1311002850}
-  - component: {fileID: 1311002853}
   m_Layer: 5
   m_Name: SceneJumpButtton
   m_TagString: Untagged
@@ -1106,7 +1120,7 @@ MonoBehaviour:
       - m_Target: {fileID: 235961207}
         m_TargetAssemblyTypeName: TitleInputField, Assembly-CSharp
         m_MethodName: RoomJoinOrCreate
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1153,18 +1167,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311002848}
   m_CullTransparentMesh: 1
---- !u!114 &1311002853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311002848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd50cd770a091a443b8fa81ba395a91c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1317028086
 GameObject:
   m_ObjectHideFlags: 0
