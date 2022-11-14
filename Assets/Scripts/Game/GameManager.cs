@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     [SerializeField] int _initialStockPrice = 2;
     ///<summary> 資産の初期値</summary>
     [SerializeField] int _initialMoney = 30;
+    [SerializeField] GameObject _gameSetPanal;
     /// <summary>プレイヤーの index。自分が何番目のプレイヤーかを表す。0スタートであり途中抜けを考慮していない。</summary>
     int _playerIndex = -1;
     /// <summary>現在何番目のプレイヤーが操作をしているか（0スタート。途中抜けを考慮していない）</summary>
@@ -37,11 +38,6 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void Start()
     {
         _controlPanel.SetActive(false);
-    }
-
-    private void Update()
-    {
-        if (_controlPanel.activeSelf && Time.timeScale == 0) { _controlPanel.SetActive(false); }
     }
 
     /// <summary>
@@ -186,8 +182,13 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     public void RaiseStock(bool finished = true)
     {
-            _stockPrice[0]+= 1;
+        if (_stockPrice[0] < 10)
+        {
+            Debug.Log(_stockPrice[0]);
+            _stockPrice[0] += 1;
             MoveStockPrice(true);
+        }
+        else { Debug.Log("上限です"); }  
     }
 
 
@@ -308,7 +309,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     public void GameSet(int winPlayer)
     {
         Debug.Log(PhotonNetwork.PlayerList[winPlayer].NickName + "が勝利した！");
-        Time.timeScale = 0;
+        _controlPanel.SetActive(false);
+        _gameSetPanal.SetActive(true);
+;        Time.timeScale = 0;
     }
 
     #region IPunTurnManagerCallbacks の実装
