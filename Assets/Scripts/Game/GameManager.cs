@@ -136,12 +136,15 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="playerIndex">戦いを吹っ掛けた相手</param>
     /// <param name="dice">それぞれのダイスの数</param>
     void BattleStock(int targetIndex, int playerIndex, int[] dice)
-    {//勝敗を判定する関数 コマンドから呼ばれる
+    {   //勝敗を判定する関数 コマンドから呼ばれる
         //ターン終了時まで非同期処理で待つ 
         //ボタンで呼んだり、相手を選ぶ機能を作る
         //SendMoveのfinishedをfalseで呼べばターンを終了せずにjsonを送れる
         //アニメーションが終了したらPhotonNetwork.LocalPlayer.SetFinishedTurnを呼んでターンを終了できる
-        
+
+        //11/20 DiceRole関数にDiceData配列を渡しながら呼ぶ
+        _dice.RollDice(dice);
+
         if (dice[0] + dice[1] > dice[2] + dice[3])
         {
             _stockPrice[targetIndex] -= 2;
@@ -186,7 +189,6 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
         if (_stockPrice[0] < 9)
         {
-            Debug.Log(_stockPrice[0]);
             _stockPrice[0] += 1;
             MoveStockPrice(true);
         }
@@ -220,7 +222,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {//戸澤 担当予定 ダイスの値で勝負してるのが見た目で分かるアニメーションを作る
         StartCoroutine(WaitForEndOfTurns());//コルーチン開始 
         int[] dice = new int[4];
-        for(int i = 0; i > dice.Length; i++)
+        for(int i = 0; i < dice.Length; i++)
         {
             dice[i] = UnityEngine.Random.Range(1,7);
         }
@@ -281,9 +283,6 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);//これは待ち始める前に送ってないといけないのでfalseで送る。
         _controlPanel.SetActive(false);
-
-        //11/20 DiceRole関数にDiceData配列を渡しながら呼ぶ
-        _dice.RollDice(data.Value);
     }
     /// <summary>
     /// 現在の自分の株数で PunTurnManager に Move を送る
