@@ -184,7 +184,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     public void RaiseStock(bool finished = true)
     {
-        if (_stockPrice[0] < 10)
+        if (_stockPrice[0] < 9)
         {
             Debug.Log(_stockPrice[0]);
             _stockPrice[0] += 1;
