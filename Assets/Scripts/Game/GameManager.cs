@@ -12,7 +12,9 @@ using Photon.Realtime;
 /// ゲーム・ターンを管理するコンポーネント
 /// </summary>
 public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
-{ 
+{
+    /// <summary>DiceScript<summary>
+    [SerializeField,Header("シーン上のものを参照するように")] Dice _dice;
     [SerializeField] PunTurnManager _turnManager;
     [SerializeField] BoardManager _boardManager;
     /// <summary>操作をするためのパネル (UI)</summary>
@@ -279,6 +281,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);//これは待ち始める前に送ってないといけないのでfalseで送る。
         _controlPanel.SetActive(false);
+
+        //11/20 DiceRole関数にDiceData配列を渡しながら呼ぶ
+        _dice.RollDice(data.Value);
     }
     /// <summary>
     /// 現在の自分の株数で PunTurnManager に Move を送る
