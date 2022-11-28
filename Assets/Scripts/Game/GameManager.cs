@@ -315,6 +315,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         Debug.Log(PhotonNetwork.PlayerList[winPlayer].NickName + "が勝利した！");
         _controlPanel.SetActive(false);
         _gameSetPanal.SetActive(true);
+        GameObject.Find("WinPlayerName").GetComponent<Text>().text = PhotonNetwork.PlayerList[winPlayer].NickName;
 ;        Time.timeScale = 0;
     }
 
