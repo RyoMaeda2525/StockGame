@@ -213,11 +213,11 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     {
         Debug.Log("OnJoinedRoom");
         Debug.Log(SceneManager.GetActiveScene().name);
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().name == "TestScene 1")
         {
             PlayerUIManager.instance.NameSet();
         }
-        else if (SceneManager.GetActiveScene().buildIndex == 1) 
+        else if (SceneManager.GetActiveScene().name == "WaitingRoom") 
         {
             _wrm.NameSet();
         }
@@ -247,7 +247,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("OnPlayerEnteredRoom: " + newPlayer.NickName);
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().name == "TestScene 1")
         {
             PlayerUIManager.instance.NameSet();
             if (PhotonNetwork.CurrentRoom.PlayerCount >= _maxPlayers)
@@ -255,7 +255,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
                 StartGame();
             }
         }
-        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        else if (SceneManager.GetActiveScene().name == "WaitingRoom")
         {
             _wrm.NameSet();
         }        
