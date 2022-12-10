@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,12 @@ public class SceneController : MonoBehaviour
     public void SceneStringJump(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void GameStart(int index) 
+    {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.LoadLevel(index);
     }
 
     public void RoomLeftTitleJump() 

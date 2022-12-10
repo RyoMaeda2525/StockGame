@@ -562,12 +562,12 @@ GameObject:
   - component: {fileID: 1027552333}
   - component: {fileID: 1027552332}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: StartButton(Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1027552331
 RectTransform:
   m_ObjectHideFlags: 0
@@ -633,21 +633,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1122495733}
-        m_TargetAssemblyTypeName: WaitingRoomManager, Assembly-CSharp
-        m_MethodName: NameSet
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1122495731}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: SceneIndexJump
+        m_MethodName: GameStart
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -834,11 +822,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac353974c99bad498c90d1c359a54be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nicknameTexts:
+  _nicknameTexts:
   - {fileID: 463502375}
   - {fileID: 684185027}
   - {fileID: 1379360998}
   - {fileID: 452092318}
+  _startButton: {fileID: 1027552330}
 --- !u!114 &1122495734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1116,7 +1105,7 @@ GameObject:
   - component: {fileID: 1776762547}
   - component: {fileID: 1776762546}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: TitleButton (Legacy) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
