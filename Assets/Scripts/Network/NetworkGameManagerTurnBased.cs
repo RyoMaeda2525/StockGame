@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon Realtime 用のクラスを継承する
 {
+    [SerializeField]
+    private WaitingRoomManager _wrm;
     /// <summary>プレイ可能な最大人数</summary>
     [SerializeField] int _maxPlayers = 2;
     private LoadBalancingClient loadBalancingClient;
@@ -211,7 +213,14 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     {
         Debug.Log("OnJoinedRoom");
         Debug.Log(SceneManager.GetActiveScene().name);
-        PlayerUIManager.instance.NameSet();
+        if (SceneManager.GetActiveScene().name == "TestScene 1")
+        {
+            PlayerUIManager.instance.NameSet();
+        }
+        else if (SceneManager.GetActiveScene().name == "WaitingRoom") 
+        {
+            _wrm.NameSet();
+        }
         SetupTurnManager();
     }
 
@@ -238,19 +247,32 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("OnPlayerEnteredRoom: " + newPlayer.NickName);
-        PlayerUIManager.instance.NameSet();
-
-        if (PhotonNetwork.CurrentRoom.PlayerCount >= _maxPlayers)
+        if (SceneManager.GetActiveScene().name == "TestScene 1")
         {
-            StartGame();
+            PlayerUIManager.instance.NameSet();
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= _maxPlayers)
+            {
+                StartGame();
+            }
         }
+        else if (SceneManager.GetActiveScene().name == "WaitingRoom")
+        {
+            _wrm.NameSet();
+        }        
     }
 
     /// <summary>自分のいる部屋から他のプレイヤーが退室した時</summary>
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        PlayerUIManager.instance.PlayerOut(otherPlayer);
-        Debug.Log("OnPlayerLeftRoom: " + otherPlayer.NickName);
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            PlayerUIManager.instance.PlayerOut(otherPlayer);
+            Debug.Log("OnPlayerLeftRoom: " + otherPlayer.NickName);
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            _wrm.NameSet();
+        }
     }
 
     /// <summary>マスタークライアントが変わった時</summary>

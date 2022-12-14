@@ -21,5 +21,6 @@ public class SceneController : MonoBehaviour
     {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene(0);
+        Destroy(this.gameObject);
     }
 }
