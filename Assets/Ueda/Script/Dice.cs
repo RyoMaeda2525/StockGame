@@ -7,7 +7,7 @@ public class Dice : MonoBehaviour
 
     public void RollDice(int[] diceValue)
     {
-        for(int i =4; i< 4;i++)
+        for(int i = diceValue.Length; i< diceValue.Length; i++)
         {
             GameObject dice = Instantiate( _dicePrefab,_diceTrans[i]);//ƒTƒCƒRƒ‚ð¶¬
             Animator anim = dice.GetComponent<Animator>();
