@@ -14,6 +14,8 @@ public class PlayerPanelManagar : MonoBehaviour
     [SerializeField, Tooltip("‰æ–Êã‚Éo‚é4í‚ÌŠ”‰¿‚ÌText")]
     Text[] _stockTypes;
 
+    const int judgeIndex = 50000;
+
     /// <summary>
     /// ‘‹à‚Æ‚¿Š”‚Ì•Ï“®‚ğó‚¯‚Æ‚é
     /// </summary>
@@ -30,7 +32,7 @@ public class PlayerPanelManagar : MonoBehaviour
     {
         _fundText.text = (int.Parse(_fundText.text) + _boardManager.StockPrice(stockType) * stockIndex).ToString();
         _stockTypes[stockType].text = (int.Parse(_stockTypes[stockType].text) - stockIndex).ToString();
-        if (int.Parse(_fundText.text) >= 50000) { return true; }
+        if (int.Parse(_fundText.text) >= judgeIndex) { return true; }
         return false;
     }
 
