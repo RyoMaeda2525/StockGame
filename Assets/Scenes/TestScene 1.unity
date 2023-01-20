@@ -549,6 +549,10 @@ PrefabInstance:
       propertyPath: _system
       value: 
       objectReference: {fileID: 1666238312}
+    - target: {fileID: 4411776615214077448, guid: 5b9c9c58fb49db4448214970567be471, type: 3}
+      propertyPath: _playerUIManager
+      value: 
+      objectReference: {fileID: 1666238318}
     - target: {fileID: 4411776615214077452, guid: 5b9c9c58fb49db4448214970567be471, type: 3}
       propertyPath: m_Name
       value: BuyPanel
@@ -5399,6 +5403,10 @@ PrefabInstance:
       propertyPath: _system
       value: 
       objectReference: {fileID: 1666238312}
+    - target: {fileID: 7129282492526567747, guid: af9275bf623a85146a647ba4d9e7059b, type: 3}
+      propertyPath: _playerUIManager
+      value: 
+      objectReference: {fileID: 1666238318}
     - target: {fileID: 7129282492526567751, guid: af9275bf623a85146a647ba4d9e7059b, type: 3}
       propertyPath: m_Name
       value: SellPanel
@@ -6632,7 +6640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b4e38ca619f4f4985d925c416a30d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 0}
+  _gameManager: {fileID: 1666238315}
   _marker:
   - {fileID: 566958584}
   - {fileID: 1689636805}
@@ -6646,7 +6654,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1666238312}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a1b3bda60e9e804f87fd1e5d20a885a, type: 3}
   m_Name: 
@@ -6667,6 +6675,7 @@ MonoBehaviour:
   _dice: {fileID: 1635290599}
   _turnManager: {fileID: 1666238314}
   _boardManager: {fileID: 1666238313}
+  _playerUIManager: {fileID: 1666238318}
   _controlPanel: {fileID: 1874149828}
   _initialStockPrice: 1
   _initialMoney: 30
@@ -6683,6 +6692,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699573a60d3ed574aab009bc2819a1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _wrm: {fileID: 0}
+  _playerUIManager: {fileID: 1666238318}
   _maxPlayers: 4
 --- !u!4 &1666238317
 Transform:
@@ -6734,6 +6745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce8679444b513540972627a8817b8d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _turnManager: {fileID: 0}
 --- !u!1 &1674390338
 GameObject:
   m_ObjectHideFlags: 0
