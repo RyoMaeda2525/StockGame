@@ -14,6 +14,8 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
 {
     [SerializeField]
     private WaitingRoomManager _wrm;
+    [SerializeField]
+    private PlayerUIManager _playerUIManager;
     /// <summary>プレイ可能な最大人数</summary>
     [SerializeField] int _maxPlayers = 2;
     private LoadBalancingClient loadBalancingClient;
@@ -218,7 +220,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
         Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "TestScene 1")
         {
-            PlayerUIManager.instance.NameSet();
+            _playerUIManager.NameSet();
             SetupTurnManager();
         }
         else if (SceneManager.GetActiveScene().name == "WaitingRoom") 
@@ -252,7 +254,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
         Debug.Log("OnPlayerEnteredRoom: " + newPlayer.NickName);
         if (SceneManager.GetActiveScene().name == "TestScene 1")
         {
-            PlayerUIManager.instance.NameSet();
+            _playerUIManager.NameSet();
             if (PhotonNetwork.CurrentRoom.PlayerCount >= _maxPlayers)
             {
                 StartGame();
@@ -269,8 +271,8 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     {
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            PlayerUIManager.instance.PlayerOut(otherPlayer);
-            Debug.Log("OnPlayerLeftRoom: " + otherPlayer.NickName);
+            _playerUIManager.PlayerOut(otherPlayer);
+            Debug.Log("OnPlayerLeftRoom: " + otherPlayer.NickName); 
         }
         else if (SceneManager.GetActiveScene().buildIndex == 1)
         {

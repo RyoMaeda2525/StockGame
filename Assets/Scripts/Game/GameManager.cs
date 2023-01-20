@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     [SerializeField,Header("シーン上のものを参照するように")] Dice _dice;
     [SerializeField] PunTurnManager _turnManager;
     [SerializeField] BoardManager _boardManager;
+    [SerializeField]
+    PlayerUIManager _playerUIManager;
     /// <summary>操作をするためのパネル (UI)</summary>
     [SerializeField] GameObject _controlPanel;
     /// <summary>株価の初期値</summary>
@@ -40,6 +42,11 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void Start()
     {
         _controlPanel.SetActive(false);
+        if (PhotonNetwork.IsMasterClient) 
+        { 
+            _turnManager.BeginTurn();
+        }
+        _turnManager.TurnManagerListener = this;
     }
 
     /// <summary>
@@ -126,7 +133,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void BuyStock(int playerIndex, int stockIndex, int[] stock)
     {
         print($"player{playerIndex+1}は、player{stockIndex+1}の株を{stock[0]}個買った。");
-        PlayerUIManager.instance.BuyStockChange(playerIndex,stockIndex,stock[0]);
+        _playerUIManager.BuyStockChange(playerIndex,stockIndex,stock[0]);
     }
 
     /// <summary>
@@ -175,7 +182,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void SellStock(int playerIndex, int stockIndex, int[] Stock)
     {
         print($"player {playerIndex+1}は、player {stockIndex+1} の株を {Stock[0]}個売った");
-        PlayerUIManager.instance.SellStockChange(playerIndex, stockIndex, Stock[0]);
+        _playerUIManager.SellStockChange(playerIndex, stockIndex, Stock[0]);
     }
 
     //ー－－－－－－－－－－－－－－－－－－－－－－－－－－

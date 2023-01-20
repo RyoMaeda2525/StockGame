@@ -15,6 +15,7 @@ public class SellPanel : MonoBehaviour
     int _totalPrice = 0;
     int _money = 0;
     [SerializeField] GameObject _system = null;
+    [SerializeField] PlayerUIManager _playerUIManager = null;
     BoardManager _board = null;
     GameManager _gm = null;
     // Start is called before the first frame update
@@ -38,7 +39,7 @@ public class SellPanel : MonoBehaviour
     public void SellButton()
     {
         Debug.Log($"{_playerIndex + 1}P‚ÌŠ”‚ð{_quantity[0]}ŒÂ ”„‹p ‡Œv {_totalPrice} ‰~");
-        _money = PlayerUIManager.instance.PlayerFundCheck(_myPlayerIndex);
+        _money = _playerUIManager.PlayerFundCheck(_myPlayerIndex);
 
         if (_gm.OtherPrice[_playerIndex] >= _quantity[0])
         {

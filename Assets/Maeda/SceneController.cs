@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    [SerializeField] PunTurnManager _turnManager;
+
     public void SceneIndexJump(int index)
     {
         SceneManager.LoadScene(index);
@@ -22,6 +24,7 @@ public class SceneController : MonoBehaviour
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.LoadLevel(index);
+        //_turnManager.BeginTurn();
     }
 
     public void RoomLeftTitleJump() 

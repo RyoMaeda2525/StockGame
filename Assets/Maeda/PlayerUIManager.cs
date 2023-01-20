@@ -8,8 +8,6 @@ using Photon.Realtime;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    public static PlayerUIManager instance;
-
     [SerializeField] GameManager _gameManager;
 
     [SerializeField, Tooltip("プレイヤーのニックネームを入れる配列")]
@@ -20,25 +18,6 @@ public class PlayerUIManager : MonoBehaviour
 
     /// <summary>プレイヤーの名前や入室順が分かる配列/// </summary>
     public Photon.Realtime.Player[] _playerArray;
-
-    private void Awake()
-    {
-        Instance();
-    }
-
-    /// <summary>以前にあればこれを壊す/// </summary>
-    private void Instance()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     /// <summary>
     /// 特定のプレイヤーが持つ資金額を取得する関数
