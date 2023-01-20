@@ -7,11 +7,11 @@ public class Dice : MonoBehaviour
 
     public void RollDice(int[] diceValue)
     {
-        foreach(int a in diceValue)
+        for(int i = diceValue.Length; i< diceValue.Length; i++)
         {
-            GameObject dice = Instantiate( _dicePrefab,_diceTrans[a]);//サイコロを生成
+            GameObject dice = Instantiate( _dicePrefab,_diceTrans[i]);//サイコロを生成
             Animator anim = dice.GetComponent<Animator>();
-            switch(diceValue[a])//出た目に応じてアニメーションを再生
+            switch(diceValue[i])//出た目に応じてアニメーションを再生
             {
                 case 1:
                     anim.SetTrigger("No1");

@@ -212,16 +212,19 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom");
+
+        PhotonNetwork.AutomaticallySyncScene = true;
+
         Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "TestScene 1")
         {
             PlayerUIManager.instance.NameSet();
+            SetupTurnManager();
         }
         else if (SceneManager.GetActiveScene().name == "WaitingRoom") 
         {
             _wrm.NameSet();
         }
-        SetupTurnManager();
     }
 
     /// <summary>指定した部屋への入室に失敗した時</summary>
@@ -257,7 +260,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
         }
         else if (SceneManager.GetActiveScene().name == "WaitingRoom")
         {
-            _wrm.NameSet();
+             _wrm.NameSet();
         }        
     }
 
