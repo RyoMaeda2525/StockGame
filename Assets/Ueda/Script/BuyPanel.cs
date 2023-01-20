@@ -15,6 +15,7 @@ public class BuyPanel : MonoBehaviour
     int _totalPrice = 0;
     int _money = 0;
     [SerializeField] GameObject _system = null;
+    [SerializeField] PlayerUIManager _playerUIManager = null;
     BoardManager _board = null;
     GameManager _gm =null;
     // Start is called before the first frame update
@@ -38,7 +39,7 @@ public class BuyPanel : MonoBehaviour
     public void BuyButton()
     {
         Debug.Log($"{_playerIndex+1}P‚ÌŠ”‚ð{_quantity[0]}ŒÂ w“ü ‡Œv {_stockPrice} ‰~");
-        _money = PlayerUIManager.instance.PlayerFundCheck(_myPlayerIndex);
+        _money = _playerUIManager.PlayerFundCheck(_myPlayerIndex);
         if (_money >= _totalPrice)
         {
             _gm.StockBuy(_playerIndex, _stockPrice, _quantity);
