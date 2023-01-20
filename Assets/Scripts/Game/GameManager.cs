@@ -57,7 +57,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         Debug.Log("Initialize Game...");
         _playerIndex = Array.IndexOf(PhotonNetwork.PlayerList, PhotonNetwork.LocalPlayer);
         _stockPrice = new int[4];
-        _stockPrice[0] = _initialStockPrice;
+        for (int i = 0; i < _stockPrice.Length; i++) 
+        {
+            _stockPrice[i] = _initialStockPrice;
+        }
         _money = _initialMoney;
         _otherPrice = new int[4] {0,0,0,0};
         _otherPrice[_playerIndex] = 5;
