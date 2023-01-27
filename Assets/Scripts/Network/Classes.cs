@@ -44,4 +44,6 @@ public enum Command
     Sell,
     ///<summary>戦う</summary>
     Battle,
+    /// <summary>バトル結果のみ送る</summary>
+    BattleFinish,
 }
