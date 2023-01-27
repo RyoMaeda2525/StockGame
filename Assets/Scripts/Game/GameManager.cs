@@ -109,6 +109,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
                 BattleStock(data.TargetPlayer, data.TargetPlayer, data.Value);
                 break;
 
+            case Command.BattleFinish:
+                ChangeStockPrice(data.TargetPlayer, data.Value); 
+                break;
 
             default:
                 Debug.LogError($"Invalid command: {data.Command.ToString()}");
@@ -123,9 +126,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="targetPrice">この値に株価を変更する</param>
     void ChangeStockPrice(int playerIndex, int[] targetPrice)
     {
-        print($"Raise player {playerIndex}'s stock to {targetPrice[0]}");
-        _stockPrices[playerIndex] = targetPrice[0];
-        _boardManager.ChangeStockPrice(playerIndex, targetPrice[0]);
+        print($"Raise player {playerIndex}'s stock to {targetPrice[playerIndex]}");
+        _stockPrices[playerIndex] = targetPrice[playerIndex];
+        _boardManager.ChangeStockPrice(playerIndex, targetPrice[playerIndex]);
     }
 
     /// <summary>
@@ -156,26 +159,26 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         //11/20 DiceRole関数にDiceData配列を渡しながら呼ぶ
         _dice.RollDice(dice);
 
-        if (dice[0] + dice[1] > dice[2] + dice[3])
-        {
-            _stockPrices[targetIndex] -= 2;
-            print($"player{playerIndex}は、player{targetIndex}と戦い、" +
-                $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
-                $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
-                $"結果、player{targetIndex}の株価が減りました。");
-            _boardManager.ChangeStockPrice(targetIndex, _stockPrices[targetIndex]);
-            //自分が勝った時のプログラム
-        }
-        else if(dice[0] + dice[1] < dice[2] + dice[3])
-        {
-            _stockPrices[playerIndex]--;
-            print($"player{playerIndex}は、player{targetIndex}と戦い、" +
-                $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
-                $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
-                $"結果、player{playerIndex}の株価が減りました。");
-            _boardManager.ChangeStockPrice(playerIndex, _stockPrices[playerIndex]);
-            //相手が勝った時のプログラム
-        }
+        //if (dice[0] + dice[1] > dice[2] + dice[3])
+        //{
+        //    _stockPrices[targetIndex] -= 2;
+        //    print($"player{playerIndex}は、player{targetIndex}と戦い、" +
+        //        $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
+        //        $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
+        //        $"結果、player{targetIndex}の株価が減りました。");
+        //    _boardManager.ChangeStockPrice(targetIndex, _stockPrices[targetIndex]);
+        //    //自分が勝った時のプログラム
+        //}
+        //else if(dice[0] + dice[1] < dice[2] + dice[3])
+        //{
+        //    _stockPrices[playerIndex]--;
+        //    print($"player{playerIndex}は、player{targetIndex}と戦い、" +
+        //        $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
+        //        $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
+        //        $"結果、player{playerIndex}の株価が減りました。");
+        //    _boardManager.ChangeStockPrice(playerIndex, _stockPrices[playerIndex]);
+        //    //相手が勝った時のプログラム
+        //}
     }
     /// <summary>
     /// 持ち株を指定した分売る
@@ -198,9 +201,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     public void RaiseStock(bool finished = true)
     {
-        if (_stockPrices[0] < 9)
+        if (_stockPrices[_playerIndex] < 9)
         {
-            _stockPrices[0] += 1;
+            _stockPrices[_playerIndex] += 1;
             MoveStockPrice(true);
         }
         else { Debug.Log("上限です"); }  
@@ -231,13 +234,46 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="true">次のターンに移行できるか否か</param>
     public void Battle()//ボタンで呼ばれる
     {//戸澤 担当予定 ダイスの値で勝負してるのが見た目で分かるアニメーションを作る
-        
-        StartCoroutine(WaitForEndOfTurns());//コルーチン開始 
+
         int[] dice = new int[4];
-        for(int i = 0; i < dice.Length; i++)
+
+        while (dice[0] + dice[1] == dice[2] + dice[3])
         {
-            dice[i] = UnityEngine.Random.Range(1,7);
+            for (int i = 0; i < dice.Length; i++)
+            {
+                dice[i] = UnityEngine.Random.Range(1, 7);
+            }
         }
+        
+        Data data = new Data();
+
+        int[] stockPrice = _stockPrices;
+
+        //自分が勝った時のプログラム
+        if (dice[0] + dice[1] > dice[2] + dice[3])
+        {
+            print($"player{_playerIndex}は、player{_targetIndex}と戦い、" +
+                $"player{_playerIndex}は{dice[0]}と{dice[1]}、" +
+                $"player{_targetIndex}は{dice[2]}と{dice[3]}を出し、" +
+                $"結果、player{_targetIndex}の株価が減りました。");
+            stockPrice[_targetIndex] -= 2;
+
+            data = new Data(Command.BattleFinish, _targetIndex , _playerIndex, stockPrice);
+        }
+        //相手が勝った時のプログラム
+        else if (dice[0] + dice[1] < dice[2] + dice[3])
+        {
+            print($"player{_playerIndex}は、player{_targetIndex}と戦い、" +
+                $"player{_playerIndex}は{dice[0]}と{dice[1]}、" +
+                $"player{_targetIndex}は{dice[2]}と{dice[3]}を出し、" +
+                $"結果、player{_playerIndex}の株価が減りました。");
+            stockPrice[_playerIndex] -= 1;
+
+            data = new Data(Command.BattleFinish, _targetIndex, _playerIndex, stockPrice);    
+        }
+
+        StartCoroutine(WaitForEndOfTurns(data));//コルーチン開始 
+
         BattleResultReflected(_targetIndex, dice, _playerIndex, false);
 
     }
@@ -382,11 +418,13 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         Debug.Log($"Enter OnTurnTimeEnds. turn: {turn}");
     }
     #endregion
-    private IEnumerator WaitForEndOfTurns()
+    private IEnumerator WaitForEndOfTurns(Data data)
     {
         //アニメーションイベントが完了してBoolが変わるまでは先に進まない
         yield return new WaitUntil(() => Triger.canProceed);
+        string json = JsonUtility.ToJson(data);
+        print($"Serialized. json: {json}");
         //ここにターン完了演出後にしてほしいことを書く
-        _turnManager.SendMove(null, true);
+        _turnManager.SendMove(json, true);
     }
 }
