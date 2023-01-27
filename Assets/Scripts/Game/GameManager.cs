@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     int _playerIndex = -1;
     /// <summary>現在何番目のプレイヤーが操作をしているか（0スタート。途中抜けを考慮していない）</summary>
     int _activePlayerIndex = -1;
-    /// <summary>現在の自分の株価</summary>
-    int[] _stockPrice;
+    /// <summary>全員の株価</summary>
+    int[] _stockPrices;
     /// <summary>自分の資産(_money/千円)</summary>
     int _money;
     /// <summary>株の所持数(他プレイヤー株と種類を分けて記録)</summary>
@@ -56,10 +56,10 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
         Debug.Log("Initialize Game...");
         _playerIndex = Array.IndexOf(PhotonNetwork.PlayerList, PhotonNetwork.LocalPlayer);
-        _stockPrice = new int[4];
-        for (int i = 0; i < _stockPrice.Length; i++) 
+        _stockPrices = new int[4];
+        for (int i = 0; i < _stockPrices.Length; i++) 
         {
-            _stockPrice[i] = _initialStockPrice;
+            _stockPrices[i] = _initialStockPrice;
         }
         _money = _initialMoney;
         _otherPrice = new int[4] {0,0,0,0};
@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void ChangeStockPrice(int playerIndex, int[] targetPrice)
     {
         print($"Raise player {playerIndex}'s stock to {targetPrice[0]}");
+        _stockPrices[playerIndex] = targetPrice[0];
         _boardManager.ChangeStockPrice(playerIndex, targetPrice[0]);
     }
 
@@ -157,22 +158,22 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
 
         if (dice[0] + dice[1] > dice[2] + dice[3])
         {
-            _stockPrice[targetIndex] -= 2;
+            _stockPrices[targetIndex] -= 2;
             print($"player{playerIndex}は、player{targetIndex}と戦い、" +
                 $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
                 $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
                 $"結果、player{targetIndex}の株価が減りました。");
-            _boardManager.ChangeStockPrice(targetIndex, _stockPrice[targetIndex]);
+            _boardManager.ChangeStockPrice(targetIndex, _stockPrices[targetIndex]);
             //自分が勝った時のプログラム
         }
         else if(dice[0] + dice[1] < dice[2] + dice[3])
         {
-            _stockPrice[playerIndex]--;
+            _stockPrices[playerIndex]--;
             print($"player{playerIndex}は、player{targetIndex}と戦い、" +
                 $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
                 $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
                 $"結果、player{playerIndex}の株価が減りました。");
-            _boardManager.ChangeStockPrice(playerIndex, _stockPrice[playerIndex]);
+            _boardManager.ChangeStockPrice(playerIndex, _stockPrices[playerIndex]);
             //相手が勝った時のプログラム
         }
     }
@@ -197,9 +198,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// </summary>
     public void RaiseStock(bool finished = true)
     {
-        if (_stockPrice[0] < 9)
+        if (_stockPrices[0] < 9)
         {
-            _stockPrice[0] += 1;
+            _stockPrices[0] += 1;
             MoveStockPrice(true);
         }
         else { Debug.Log("上限です"); }  
@@ -280,7 +281,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="finished">true の時は自分の番を終わる</param>
     void MoveStockPrice(bool finished = true)
     {
-        Data data = new Data(Command.Raise , _playerIndex , _playerIndex  , _stockPrice);
+        Data data = new Data(Command.Raise , _playerIndex , _playerIndex  , _stockPrices);
         string json = JsonUtility.ToJson(data);
         print($"Serialized. json: {json}");
         _turnManager.SendMove(json, finished);
