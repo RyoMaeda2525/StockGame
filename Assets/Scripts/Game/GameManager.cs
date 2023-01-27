@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     int _money;
     /// <summary>株の所持数(他プレイヤー株と種類を分けて記録)</summary>
     int[] _otherPrice;
-
+    int _targetIndex;
     public int[] OtherPrice { get => _otherPrice; set => _otherPrice = value; }
 
     void Start()
@@ -228,16 +228,21 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <param name="dice">勝敗判定に使うダイスの値１～６</param>
     /// <param name="_playerIndex">勝負を仕掛ける側（自分）のプレイヤー番号</param>
     /// <param name="true">次のターンに移行できるか否か</param>
-    public void Battle(int targetIndex)//ボタンで呼ばれる
+    public void Battle()//ボタンで呼ばれる
     {//戸澤 担当予定 ダイスの値で勝負してるのが見た目で分かるアニメーションを作る
+        
         StartCoroutine(WaitForEndOfTurns());//コルーチン開始 
         int[] dice = new int[4];
         for(int i = 0; i < dice.Length; i++)
         {
             dice[i] = UnityEngine.Random.Range(1,7);
         }
-        BattleResultReflected(targetIndex, dice, _playerIndex, false);
+        BattleResultReflected(_targetIndex, dice, _playerIndex, false);
 
+    }
+    public void BattleButton(int targetIndex)
+    {
+        _targetIndex = targetIndex;
     }
 
 
