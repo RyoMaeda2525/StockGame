@@ -158,6 +158,27 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
 
         //11/20 DiceRole関数にDiceData配列を渡しながら呼ぶ
         _dice.RollDice(dice);
+
+        //if (dice[0] + dice[1] > dice[2] + dice[3])
+        //{
+        //    _stockPrices[targetIndex] -= 2;
+        //    print($"player{playerIndex}は、player{targetIndex}と戦い、" +
+        //        $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
+        //        $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
+        //        $"結果、player{targetIndex}の株価が減りました。");
+        //    _boardManager.ChangeStockPrice(targetIndex, _stockPrices[targetIndex]);
+        //    //自分が勝った時のプログラム
+        //}
+        //else if(dice[0] + dice[1] < dice[2] + dice[3])
+        //{
+        //    _stockPrices[playerIndex]--;
+        //    print($"player{playerIndex}は、player{targetIndex}と戦い、" +
+        //        $"player{playerIndex}は{dice[0]}と{dice[1]}、" +
+        //        $"player{targetIndex}は{dice[2]}と{dice[3]}を出し、" +
+        //        $"結果、player{playerIndex}の株価が減りました。");
+        //    _boardManager.ChangeStockPrice(playerIndex, _stockPrices[playerIndex]);
+        //    //相手が勝った時のプログラム
+        //}
     }
     /// <summary>
     /// 持ち株を指定した分売る

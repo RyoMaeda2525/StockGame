@@ -18,9 +18,6 @@ EditorBuildSettings:
     path: Assets/Maeda/Scene/TitleScene.unity
     guid: 83305b42e99d98748912a8637056512e
   - enabled: 1
-    path: Assets/Scenes/WaitingRoom.unity
-    guid: bd2cc851796e75d4b9e2164bad078e21
-  - enabled: 1
     path: Assets/Scenes/TestScene 1.unity
     guid: 90a105308dcee854aaac41362016a478
   m_configObjects: {}
