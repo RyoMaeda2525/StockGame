@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;    // TurnManager のため
 using UnityEngine.SceneManagement;
+using Photon.Pun.Demo.Cockpit;
 
 /// <summary>
 /// Photon.Pun.UtilityScripts.PunTurnManager を使った turn-based なゲームを初期化するコンポーネント
@@ -29,6 +30,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
 
     private void Start()
     {
+
         // Photon に接続する
         Connect("1.0"); // 1.0 はバージョン番号（同じバージョンを指定したクライアント同士が接続できる）
     }
@@ -92,6 +94,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.IsVisible = true;   // 誰でも参加できるようにする
             roomOptions.MaxPlayers = (byte)_maxPlayers;
+            PhotonNetwork.RoomName = null;
             PhotonNetwork.CreateRoom(null, roomOptions); // ルーム名に null を指定するとランダムなルーム名を付ける
         }
     }
@@ -156,6 +159,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsVisible = false;
         SetMyNickName(nickName);
+        PhotonNetwork.RoomName = roomid;
         PhotonNetwork.JoinOrCreateRoom(roomid, roomOptions, null);
     }
 
