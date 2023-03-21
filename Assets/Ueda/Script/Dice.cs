@@ -8,11 +8,6 @@ public class Dice : MonoBehaviour
     [SerializeField] Text[] _result = null;
     [SerializeField] Text[] _total = null;
 
-    private void Start() //Šm”F—p
-    {
-        int[] a = { 1, 3, 3, 6 };
-        RollDice(a);
-    }
     public void RollDice(int[] diceValue)
     {
 
