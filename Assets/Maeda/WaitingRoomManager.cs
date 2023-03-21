@@ -10,8 +10,20 @@ public class WaitingRoomManager : MonoBehaviour
     [SerializeField]
     Text[] _nicknameTexts;
 
+    [SerializeField , Header("ルーム名")]
+    Text roomName;
+
     [SerializeField]
     GameObject _startButton;
+
+    private void Start()
+    {
+        if(PhotonNetwork.RoomName != null) 
+        {
+            roomName.text = "ルーム名:"+PhotonNetwork.RoomName;
+        }
+        else roomName.text = "ランダムマッチ";
+    }
 
     public void NameSet()
     {
