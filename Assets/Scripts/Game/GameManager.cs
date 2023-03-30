@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     ///<summary> 資産の初期値</summary>
     [SerializeField] int _initialMoney = 30;
     [SerializeField] GameObject _gameSetPanal;
+    /// <summary>参加しているプレイヤーの人数</summary>
+    int _playerCount = 0;
     /// <summary>プレイヤーの index。自分が何番目のプレイヤーかを表す。0スタートであり途中抜けを考慮していない。</summary>
     int _playerIndex = -1;
     /// <summary>現在何番目のプレイヤーが操作をしているか（0スタート。途中抜けを考慮していない）</summary>
@@ -56,13 +58,14 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
         Debug.Log("Initialize Game...");
         _playerIndex = Array.IndexOf(PhotonNetwork.PlayerList, PhotonNetwork.LocalPlayer);
-        _stockPrices = new int[4];
+        _playerCount = PhotonNetwork.PlayerList.Length;
+        _stockPrices = new int[_playerCount];
         for (int i = 0; i < _stockPrices.Length; i++) 
         {
             _stockPrices[i] = _initialStockPrice;
         }
         _money = _initialMoney;
-        _otherPrice = new int[4] {0,0,0,0};
+        _otherPrice = new int[_playerCount];
         _otherPrice[_playerIndex] = 5;
     }
 
@@ -368,7 +371,6 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _controlPanel.SetActive(false);
         _gameSetPanal.SetActive(true);
         GameObject.Find("WinPlayerName").GetComponent<Text>().text = PhotonNetwork.PlayerList[winPlayer].NickName;
-;        Time.timeScale = 0;
     }
 
     #region IPunTurnManagerCallbacks の実装

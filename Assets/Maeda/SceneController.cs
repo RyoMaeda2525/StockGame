@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneController : MonoBehaviour
+public class SceneController : MonoBehaviourPunCallbacks
 {
     [SerializeField] PunTurnManager _turnManager;
 
@@ -29,8 +29,6 @@ public class SceneController : MonoBehaviour
 
     public void RoomLeftTitleJump() 
     {
-        PhotonNetwork.LeaveRoom();
-        SceneManager.LoadScene(0);
-        Destroy(this.gameObject);
+        Debug.Log(PhotonNetwork.LeaveRoom());
     }
 }
