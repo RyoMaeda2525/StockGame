@@ -18,9 +18,9 @@ public class WaitingRoomManager : MonoBehaviour
 
     private void Start()
     {
-        if(PhotonNetwork.RoomName != null) 
+        if(NetworkGameManagerTurnBased.RoomName != null) 
         {
-            roomName.text = "ルーム名:"+PhotonNetwork.RoomName;
+            roomName.text = "ルーム名:"+ NetworkGameManagerTurnBased.RoomName;
         }
         else roomName.text = "ランダムマッチ";
     }

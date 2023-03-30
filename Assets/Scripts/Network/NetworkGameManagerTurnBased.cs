@@ -21,6 +21,9 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     [SerializeField] int _maxPlayers = 2;
     private LoadBalancingClient loadBalancingClient;
     PunTurnManager _turnManager = default;
+    
+    /// <summary>現在入室している部屋名 </summary>
+    public static string RoomName = null;
 
     private void Awake()
     {
@@ -89,12 +92,12 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     private void CreateRandomRoom()
     {
         Debug.Log("CreateRoom");
-        if (PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnected && PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer)
         {
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.IsVisible = true;   // 誰でも参加できるようにする
             roomOptions.MaxPlayers = (byte)_maxPlayers;
-            PhotonNetwork.RoomName = null;
+            RoomName = null;
             PhotonNetwork.CreateRoom(null, roomOptions); // ルーム名に null を指定するとランダムなルーム名を付ける
         }
     }
@@ -159,7 +162,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsVisible = false;
         SetMyNickName(nickName);
-        PhotonNetwork.RoomName = roomid;
+        RoomName = roomid;
         PhotonNetwork.JoinOrCreateRoom(roomid, roomOptions, null);
     }
 
@@ -250,6 +253,7 @@ public class NetworkGameManagerTurnBased : MonoBehaviourPunCallbacks // Photon R
     public override void OnLeftRoom()
     {
         Debug.Log("OnLeftRoom");
+        SceneManager.LoadScene(0);
     }
 
     /// <summary>自分のいる部屋に他のプレイヤーが入室してきた時</summary>
